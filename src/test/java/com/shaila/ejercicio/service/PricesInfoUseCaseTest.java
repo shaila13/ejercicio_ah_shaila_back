@@ -4,6 +4,7 @@ import com.shaila.ejercicio.application.services.PriceService;
 import com.shaila.ejercicio.application.usescases.GetPricesUseCaseImpl;
 import com.shaila.ejercicio.domain.models.Price;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
+import com.shaila.ejercicio.infraestructure.dto.PriceDto;
 import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
 import com.shaila.ejercicio.infraestructure.exception.InvalidParameterException;
 import com.shaila.ejercicio.infraestructure.exception.PriceNotFoundException;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -34,8 +36,12 @@ class PricesInfoUseCaseTest {
 	String applicationDateWrong = "2020-06-14-00:00:00";
 	Price price ;
 	Price price2 ;
-	List<Price> priceList ;
 
+	PriceDto priceDto;
+	PriceDto priceDto2;
+	List<Price> priceList ;
+	List<PriceDto> priceDtoList;
+	ResponsePriceDto responsePriceDto;
 	@MockBean(name = "priceRepositoryPort")
 	PriceRepositoryPort priceRepositoryPort;
 
@@ -53,7 +59,14 @@ class PricesInfoUseCaseTest {
 				1, productId, 1, 35.50, "EUR");
 		price2 = new Price(brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
 				2, productId, 1, 25.45, "EUR");
+
+		priceDto = new PriceDto(brandId,productId,1,  LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				35.50);
+		priceDto2 = new PriceDto(brandId, productId,2, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				  25.45);
 		priceList = Arrays.asList(price,price2);
+		priceDtoList = Arrays.asList(priceDto,priceDto2);
+		responsePriceDto = new ResponsePriceDto(priceDtoList);
 		priceRepositoryPort = mock(PriceRepositoryPort.class);
 		jpaPriceRepositoryAdapter = mock(JpaPriceRepositoryAdapter.class);
 		getPricesUseCase = new GetPricesUseCaseImpl(priceRepositoryPort);
@@ -66,9 +79,19 @@ class PricesInfoUseCaseTest {
 
 		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, applicationDate);
 		assertNotNull(result);
-		assertEquals(2, result.getPrices().size());
+		assertEquals(priceList.size(), result.getPrices().size());
 		assertEquals(35.50, result.getPrices().get(0).getPrice());
 
+		IntStream.range(0, priceList.size())
+				.forEach(i -> {
+					Price expectedPrice = priceList.get(i);
+					PriceDto actualPrice = result.getPrices().get(i);
+
+					assertEquals(expectedPrice.getBrandId(), actualPrice.getBrandId());
+					assertEquals(expectedPrice.getProductId(), actualPrice.getProductId());
+					assertEquals(expectedPrice.getPriceList(), actualPrice.getPriceList());
+					assertEquals(expectedPrice.getPrice(), actualPrice.getPrice());
+				});
 	}
 
 	@Test

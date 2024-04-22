@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface PriceRepositoryPort {
 
-   List<Price>  findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime starDate,
-                                                         LocalDateTime endDate);
+   List<Price>  findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate);
 
 }

@@ -25,11 +25,11 @@ public class JpaPriceRepositoryAdapter implements PriceRepositoryPort {
     }
 
     @Override
-    public List<Price> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime starDate, LocalDateTime endDate) {
+    public List<Price> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate) {
 
         Optional<List<Prices>> optionalPricesList = jpaPriceRepository.
-                findByBrandIdAndProductIdAndStartDateGreaterThanEqualAndEndDateLessThanEqualOrderByPriorityDesc(brandId,
-                        productId, starDate, endDate);
+                findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc(brandId,
+                        productId, applicationDate);
         List<Prices> pricesList = optionalPricesList.orElse(Collections.emptyList());
 
         return pricesList.stream()

@@ -24,12 +24,12 @@ public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
     }
 
     @Override
-    public ResponsePriceDto getPricesInfo(Long brandId,Long productId, String starDate, String endDate) {
+    public ResponsePriceDto getPricesInfo(Long brandId,Long productId, String aplicationDate) {
 
         try {
 
             List<Price> priceList = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId, productId,
-                    convertStringToLocalDateTime(starDate), convertStringToLocalDateTime(endDate));
+                    LocalDateTime.parse(aplicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
             if (priceList.isEmpty()) {
                 throw new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados.");
@@ -43,8 +43,5 @@ public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
         }
     }
 
-    public LocalDateTime convertStringToLocalDateTime(String stringDate) {
-        return LocalDateTime.parse(stringDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
 }
 

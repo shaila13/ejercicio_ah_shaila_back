@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,8 +30,6 @@ class PricesInfoUseCaseTest {
 
 	Long brandId = 1L;
 	Long productId = 35455L;
-	String starDate = "2020-06-14 00:00:00";
-	String endDate = "2020-12-30 23:59:59";
 	String applicationDate = "2020-06-14 00:00:00";
 	Price price ;
 	Price price2 ;
@@ -78,7 +77,7 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(Collections.emptyList());
 		assertThrows(PriceNotFoundException.class,
-				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "2024-06-14 00:00:00"));
+				() -> getPricesUseCase.getPricesInfo(1L, 35455L, applicationDate));
 	}
 
 	@Test
@@ -86,7 +85,6 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(priceList);
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "2020-06-14-00.00.00"));
+				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "2020-06-14-00:00:00"));
 	}
-
 }

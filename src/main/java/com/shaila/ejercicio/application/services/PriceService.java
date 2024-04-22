@@ -14,8 +14,8 @@ public class PriceService implements GetPricesInfoUseCase {
     }
 
     @Override
-    public ResponsePriceDto getPricesInfo(Long brandId, Long productId, String starDate, String endDate) {
-        return getPricesInfoUseCase.getPricesInfo(brandId, productId, starDate, endDate);
+    public ResponsePriceDto getPricesInfo(Long brandId, Long productId, String aplicationDate) {
+        return getPricesInfoUseCase.getPricesInfo(brandId, productId, aplicationDate);
     }
 }
 

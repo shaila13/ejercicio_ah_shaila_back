@@ -31,10 +31,9 @@ public class PriceController {
     public ResponseEntity<ResponsePriceDto> getInfoPrices(
             @RequestParam Long brandId,
             @RequestParam Long productId,
-            @RequestParam String starDate,
-            @RequestParam String endDate) {
+            @RequestParam String applicationDate) {
 
-        ResponsePriceDto response = priceService.getPricesInfo(brandId, productId, starDate, endDate);
+        ResponsePriceDto response = priceService.getPricesInfo(brandId, productId, applicationDate);
         return ResponseEntity.ok(response);
     }
 

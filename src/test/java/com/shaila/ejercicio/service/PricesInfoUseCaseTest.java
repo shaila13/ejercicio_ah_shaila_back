@@ -49,13 +49,11 @@ class PricesInfoUseCaseTest {
 
 	@BeforeEach
 	void setUp() {
-		price = new Price(1L, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				1, 35455L, 1, 35.50, "EUR");
-		price2 = new Price(1L, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				2, 35455L, 1, 90.50, "EUR");
-		priceList = new ArrayList<>();
-		priceList.add(price);
-		priceList.add(price2);
+		price = new Price(brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				1, productId, 1, 35.50, "EUR");
+		price2 = new Price(brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				2, productId, 1, 25.45, "EUR");
+		priceList = Arrays.asList(price,price2);
 		priceRepositoryPort = mock(PriceRepositoryPort.class);
 		jpaPriceRepositoryAdapter = mock(JpaPriceRepositoryAdapter.class);
 		getPricesUseCase = new GetPricesUseCaseImpl(priceRepositoryPort);
@@ -68,7 +66,7 @@ class PricesInfoUseCaseTest {
 
 		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, applicationDate);
 		assertNotNull(result);
-		assertEquals(2, result.getPrices().size());
+		assertEquals(priceList.size(), result.getPrices());
 		assertEquals(35.50, result.getPrices().get(0).getPrice());
 
 	}
@@ -78,7 +76,7 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(Collections.emptyList());
 		assertThrows(PriceNotFoundException.class,
-				() -> getPricesUseCase.getPricesInfo(1L, 35455L, applicationDate));
+				() -> getPricesUseCase.getPricesInfo(brandId, productId, applicationDate));
 	}
 
 	@Test
@@ -86,6 +84,6 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(priceList);
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(1L, 35455L, applicationDateWrong));
+				() -> getPricesUseCase.getPricesInfo(brandId, productId, applicationDateWrong));
 	}
 }

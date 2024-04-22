@@ -1,22 +1,20 @@
 package com.shaila.ejercicio.infraestructure.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import java.util.ArrayList;
+
+import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ResponsePriceDto {
+public class ResponsePriceDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     List<PriceDto> prices;
 
-    public ResponsePriceDto(List<PriceDto> prices) {
-        this.prices =  prices;
-    }
 }

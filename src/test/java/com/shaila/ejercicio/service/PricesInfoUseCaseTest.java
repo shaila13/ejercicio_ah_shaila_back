@@ -66,7 +66,7 @@ class PricesInfoUseCaseTest {
 
 		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, applicationDate);
 		assertNotNull(result);
-		assertEquals(priceList.size(), result.getPrices());
+		assertEquals(2, result.getPrices().size());
 		assertEquals(35.50, result.getPrices().get(0).getPrice());
 
 	}

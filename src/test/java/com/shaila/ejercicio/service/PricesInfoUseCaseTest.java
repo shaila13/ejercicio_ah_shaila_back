@@ -31,6 +31,7 @@ class PricesInfoUseCaseTest {
 	Long brandId = 1L;
 	Long productId = 35455L;
 	String applicationDate = "2020-06-14 00:00:00";
+	String applicationDateWrong = "2020-06-14-00:00:00";
 	Price price ;
 	Price price2 ;
 	List<Price> priceList ;
@@ -85,6 +86,6 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(priceList);
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "2020-06-14-00:00:00"));
+				() -> getPricesUseCase.getPricesInfo(1L, 35455L, applicationDateWrong));
 	}
 }

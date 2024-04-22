@@ -31,6 +31,7 @@ class PricesInfoUseCaseTest {
 	Long productId = 35455L;
 	String starDate = "2020-06-14 00:00:00";
 	String endDate = "2020-12-30 23:59:59";
+	String applicationDate = "2020-06-14 00:00:00";
 	Price price ;
 	Price price2 ;
 	List<Price> priceList ;
@@ -63,9 +64,9 @@ class PricesInfoUseCaseTest {
 
 	@Test
 	public void shouldReturnPricesWhenCalledWithValidParameters(){
-		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(),any(),any(),any())).thenReturn(priceList);
+		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(),any(),any())).thenReturn(priceList);
 
-		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, starDate, endDate);
+		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, applicationDate);
 		assertNotNull(result);
 		assertEquals(2, result.getPrices().size());
 		assertEquals(35.50, result.getPrices().get(0).getPrice());
@@ -74,26 +75,18 @@ class PricesInfoUseCaseTest {
 
 	@Test
 	public void shouldReturnPriceNotFoundExceptionWhenDoNotFindAnyPrices() {
-		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any(), any()))
+		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(Collections.emptyList());
 		assertThrows(PriceNotFoundException.class,
-				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "2024-06-14 00:00:00", "2024-12-30 23:59:59"));
+				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "2024-06-14 00:00:00"));
 	}
 
 	@Test
 	public void shouldReturnInvalidParameterExceptionWhenCalledWithNoValidDates() {
-		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any(), any()))
+		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(priceList);
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "aaaa", "aaaa"));
+				() -> getPricesUseCase.getPricesInfo(1L, 35455L, "2020-06-14-00.00.00"));
 	}
-
-	@Test
-	public void shouldReturnValidLocalDateTimeWhenCalledWithValidStringDate() {
-		LocalDateTime expectedDateTime = LocalDateTime.of(2020, 6, 14, 0, 0, 0);
-		LocalDateTime resultDateTime = getPricesUseCase.convertStringToLocalDateTime("2020-06-14 00:00:00");
-		assertEquals(expectedDateTime, resultDateTime);
-	}
-
 
 }

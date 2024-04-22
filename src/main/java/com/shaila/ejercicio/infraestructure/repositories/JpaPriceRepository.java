@@ -6,11 +6,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface JpaPriceRepository extends JpaRepository<Prices, Long> {
 
-    List<Prices> findByBrandIdAndProductIdAndStartDateGreaterThanEqualAndEndDateLessThanEqualOrderByPriorityDesc
+
+    Optional< List<Prices>> findByBrandIdAndProductIdAndStartDateGreaterThanEqualAndEndDateLessThanEqualOrderByPriorityDesc
             (@Param("brandId") Long brandId,@Param("productId") Long productId, @Param("starDate") LocalDateTime
                     starDate , @Param("endDate") LocalDateTime endDate);
 }

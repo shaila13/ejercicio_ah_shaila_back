@@ -7,7 +7,9 @@ import com.shaila.ejercicio.infraestructure.mappers.PriceDataAccessMapper;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,11 +26,14 @@ public class JpaPriceRepositoryAdapter implements PriceRepositoryPort {
 
     @Override
     public List<Price> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime starDate, LocalDateTime endDate) {
-        //formato de fecha --> revisar
-        List<Prices> priceEntity = jpaPriceRepository.
+
+        Optional<List<Prices>> optionalPricesList = jpaPriceRepository.
                 findByBrandIdAndProductIdAndStartDateGreaterThanEqualAndEndDateLessThanEqualOrderByPriorityDesc(brandId,
                         productId, starDate, endDate);
-        return priceEntity.stream().map(PriceDataAccessMapper::toDomainModel)
+        List<Prices> pricesList = optionalPricesList.orElse(Collections.emptyList());
+
+        return pricesList.stream()
+                .map(PriceDataAccessMapper::toDomainModel)
                 .collect(Collectors.toList());
     }
 

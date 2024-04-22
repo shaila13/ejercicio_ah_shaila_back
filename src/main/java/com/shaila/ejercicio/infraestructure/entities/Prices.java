@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -20,10 +21,14 @@ public class Prices  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long pricesId;
 
+    @NotNull
     Long productId;
+    @NotNull
     Long brandId;
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime startDate;
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime endDate;
     double price;

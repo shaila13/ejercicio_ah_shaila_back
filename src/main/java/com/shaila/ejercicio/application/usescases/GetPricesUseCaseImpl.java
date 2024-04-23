@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
@@ -36,20 +36,14 @@ public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
      * @return {@link ResponsePriceDto} que contiene la información de precios.
      */
     @Override
-    public ResponsePriceDto getPricesInfo(Long brandId,Long productId, String applicationDate) {
-
+    public ResponsePriceDto getPricesInfo(Long brandId, Long productId, String applicationDate) {
         try {
+            Optional<Price> optionalPrice = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId, productId,
+                    LocalDateTime.parse(applicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).flatMap(list -> list.stream().findFirst());
 
-            List<Price> priceList = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId, productId,
-                    LocalDateTime.parse(applicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            Price price = optionalPrice.stream().findFirst().orElseThrow(() -> new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados."));
 
-            if (priceList.isEmpty()) {
-                throw new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados.");
-            }
-
-            return new ResponsePriceDto(priceList.stream()
-                    .map(PriceDataAccessMapper::toPriceDto)
-                    .collect(Collectors.toList()));
+            return new ResponsePriceDto(PriceDataAccessMapper.toPriceDto(price));
         } catch (DateTimeParseException e) {
             throw new InvalidParameterException("Formato de fecha incorrecto. Se esperaba 'yyyy-MM-dd HH:mm:ss'.");
         }

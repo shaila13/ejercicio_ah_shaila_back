@@ -16,44 +16,43 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Price {
-
     /**
-     * ID de la marca.
+     * Identificador de la cadena.
      */
     Long brandId;
 
     /**
-     * Fecha de inicio del precio.
+     * Fecha de inicio en el que aplica el precio tarifa indicado.
      */
     LocalDateTime startDate;
 
     /**
-     * Fecha de fin del precio.
+     * Fecha de fin en el que aplica el precio tarifa indicado.
      */
     LocalDateTime endDate;
 
     /**
-     * Lista de precios.
+     * Identificador de la tarifa de precios aplicable.
      */
     int priceList;
 
     /**
-     * ID del producto.
+     * Identificador código de producto.
      */
     Long productId;
 
     /**
-     * Prioridad del precio.
+     * Desambiguador de aplicación de precios.
      */
     int priority;
 
     /**
-     * Precio.
+     * Precio final de venta.
      */
     Double price;
 
     /**
-     * Moneda del precio.
+     * Iso de la moneda.
      */
     String currency;
 

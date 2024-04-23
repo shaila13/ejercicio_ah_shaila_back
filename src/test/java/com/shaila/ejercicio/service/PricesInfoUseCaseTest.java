@@ -17,15 +17,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class PricesInfoUseCaseTest {
@@ -38,9 +38,8 @@ class PricesInfoUseCaseTest {
 	Price price2 ;
 
 	PriceDto priceDto;
-	PriceDto priceDto2;
 	List<Price> priceList ;
-	List<PriceDto> priceDtoList;
+
 	ResponsePriceDto responsePriceDto;
 	@MockBean(name = "priceRepositoryPort")
 	PriceRepositoryPort priceRepositoryPort;
@@ -58,15 +57,12 @@ class PricesInfoUseCaseTest {
 		price = new Price(brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
 				1, productId, 1, 35.50, "EUR");
 		price2 = new Price(brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				2, productId, 1, 25.45, "EUR");
+				2, productId, 0, 25.45, "EUR");
 
 		priceDto = new PriceDto(brandId,productId,1,  LocalDateTime.now(), LocalDateTime.now().plusHours(1),
 				35.50);
-		priceDto2 = new PriceDto(brandId, productId,2, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				  25.45);
 		priceList = Arrays.asList(price,price2);
-		priceDtoList = Arrays.asList(priceDto,priceDto2);
-		responsePriceDto = new ResponsePriceDto(priceDtoList);
+		responsePriceDto = new ResponsePriceDto(priceDto);
 		priceRepositoryPort = mock(PriceRepositoryPort.class);
 		jpaPriceRepositoryAdapter = mock(JpaPriceRepositoryAdapter.class);
 		getPricesUseCase = new GetPricesUseCaseImpl(priceRepositoryPort);
@@ -75,37 +71,29 @@ class PricesInfoUseCaseTest {
 
 	@Test
 	public void shouldReturnPricesWhenCalledWithValidParameters(){
-		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(),any(),any())).thenReturn(priceList);
-
+		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
+				.thenReturn(Optional.of(Collections.singletonList(price)));
 		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, applicationDate);
 		assertNotNull(result);
-		assertEquals(priceList.size(), result.getPrices().size());
-		assertEquals(35.50, result.getPrices().get(0).getPrice());
+		assertNotNull(result.getPrice());
+		assertEquals(35.50, result.getPrice().getPrice());
+		verify(priceRepositoryPort, times(1))
+				.findByBrandIdAndProductIdDateApplication(brandId, productId, LocalDateTime.parse(applicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-		IntStream.range(0, priceList.size())
-				.forEach(i -> {
-					Price expectedPrice = priceList.get(i);
-					PriceDto actualPrice = result.getPrices().get(i);
-
-					assertEquals(expectedPrice.getBrandId(), actualPrice.getBrandId());
-					assertEquals(expectedPrice.getProductId(), actualPrice.getProductId());
-					assertEquals(expectedPrice.getPriceList(), actualPrice.getPriceList());
-					assertEquals(expectedPrice.getPrice(), actualPrice.getPrice());
-				});
 	}
 
 	@Test
 	public void shouldReturnPriceNotFoundExceptionWhenDoNotFindAnyPrices() {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
-				.thenReturn(Collections.emptyList());
+				.thenReturn(Optional.empty());
 		assertThrows(PriceNotFoundException.class,
 				() -> getPricesUseCase.getPricesInfo(brandId, productId, applicationDate));
 	}
 
 	@Test
 	public void shouldReturnInvalidParameterExceptionWhenCalledWithNoValidDates() {
-		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
-				.thenReturn(priceList);
+		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
+				.thenReturn(Optional.of(Collections.singletonList(price)));
 		assertThrows(InvalidParameterException.class,
 				() -> getPricesUseCase.getPricesInfo(brandId, productId, applicationDateWrong));
 	}

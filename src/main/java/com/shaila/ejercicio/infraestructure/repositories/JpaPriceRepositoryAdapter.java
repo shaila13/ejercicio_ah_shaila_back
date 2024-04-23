@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,17 +36,17 @@ public class JpaPriceRepositoryAdapter implements PriceRepositoryPort {
     }
 
     @Override
-    public List<Price> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate) {
+    public Optional<List<Price>> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate) {
         log.info("Consultando precios para brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
 
-        Optional<List<Prices>> optionalPricesList = jpaPriceRepository.
-                findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc(brandId,
-                        productId, applicationDate);
-        List<Prices> pricesList = optionalPricesList.orElse(Collections.emptyList());
+        Optional<List<Prices>> optionalPricesList = jpaPriceRepository
+                .findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc(brandId, productId, applicationDate);
 
-        return pricesList.stream()
-                .map(PriceDataAccessMapper::toDomainModel)
-                .collect(Collectors.toList());
+        return optionalPricesList.map(pricesList ->
+                pricesList.stream()
+                        .map(PriceDataAccessMapper::toDomainModel)
+                        .collect(Collectors.toList())
+        );
     }
 
 }

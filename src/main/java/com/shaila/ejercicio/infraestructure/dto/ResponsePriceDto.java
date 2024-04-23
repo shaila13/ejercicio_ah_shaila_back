@@ -6,7 +6,10 @@ import lombok.experimental.FieldDefaults;
 import java.io.Serializable;
 import java.util.List;
 
-
+/**
+ * Clase DTO (Data Transfer Object) que representa la respuesta de precios.
+ * Contiene una lista de objetos {@link PriceDto} que representan los precios.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -14,7 +17,9 @@ import java.util.List;
 public class ResponsePriceDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Lista de precios.
+     */
     List<PriceDto> prices;
 
 }

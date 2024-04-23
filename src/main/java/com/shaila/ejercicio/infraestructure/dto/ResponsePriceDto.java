@@ -17,9 +17,6 @@ import java.util.List;
 public class ResponsePriceDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * Lista de precios.
-     */
-    List<PriceDto> prices;
+    PriceDto price;
 
 }

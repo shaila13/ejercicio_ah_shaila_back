@@ -25,7 +25,7 @@ public interface JpaPriceRepository extends JpaRepository<Prices, Long> {
      * @return Lista de precios que coinciden con los parámetros proporcionados, ordenados por prioridad descendente.
      */
     @Query("SELECT p FROM Prices p WHERE p.brandId = :brandId AND p.productId = :productId AND :applicationDate between p.startDate and p.endDate ORDER BY p.priority DESC")
-    Optional< List<Prices>> findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc
+    Optional<List<Prices>> findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc
             (@Param("brandId") Long brandId,@Param("productId") Long productId, @Param("applicationDate") LocalDateTime
                     applicationDate);
 }

@@ -22,33 +22,36 @@ public class PriceDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * ID del producto.
+     * Identificador código de producto.
      */
     Long productId;
 
     /**
-     * ID de la marca.
+     * Identificador de la cadena.
      */
     Long brandId;
 
     /**
-     * Lista de precios.
+     * Identificador de la tarifa de precios aplicable.
      */
     int priceList;
 
     /**
-     * Fecha de inicio.
+     * Fecha de inicio en el que aplica el precio tarifa indicado.
      */
     LocalDateTime startDate;
 
     /**
-     * Fecha de fin.
+     * Fecha de fin en el que aplica el precio tarifa indicado.
      */
     LocalDateTime endDate;
 
     /**
-     * Precio.
+     * Precio final de venta.
      */
     Double price;
 
 }
+
+
+

@@ -50,7 +50,7 @@ Ejemplo de solicitud:
 GET /prices?brandId=1&productId=35455&applicationDate=2022-01-01 10:00:00
 ```
 
-## API Reference
+## APP Reference
 
 #### Get prices
 ```http
@@ -94,6 +94,38 @@ GET /prices?brandId=1&productId=35455&applicationDate=2022-01-01 10:00:00
 Cuerpo: { "status": "404", "message": "No se encontraron precios para los parámetros proporcionados." }
 400 Bad Request
 Cuerpo: { "status": "400", "message": "Formato de fecha incorrecto. Se esperaba 'yyyy-MM-dd HH:mm:ss'." }
+
+## API Postman Collection E2E-Tests-shaila
+
+## Importar la colección de Postman
+
+1. **Descargar la colección**:
+   - Puedes descargar la colección de Postman desde [este enlace](/postman/E2E-Tests-shaila.postman_collection.json).
+
+2. **Importar la colección**:
+   - Abre [Postman](https://www.postman.com/) en tu computadora.
+   - Haz clic en el botón "Import" en la esquina superior izquierda.
+   - Selecciona la opción "Import File".
+   - Navega hasta donde descargaste el archivo `E2E-Tests-shaila.postman_collection.json` y selecciónalo.
+   - Postman importará la colección automáticamente.
+
+3. **Verificar la importación**:
+   - Una vez importada, verás la colección "E2E Tests Shaila" en tu panel de colecciones en Postman.
+
+## Ejecutar las pruebas E2E
+Puedes ejecutar las pruebas end-to-end (E2E) proporcionadas en la colección para probar la API. Asegúrate de configurar las variables de entorno necesarias antes de ejecutarlas.
+
+### Variables de entorno
+- Antes de ejecutar las pruebas, asegúrate de configurar las siguientes variables de entorno en Postman:
+   - `URL`: La URL base de la APP que quieres probar (por ejemplo, `http://localhost:8080`).
+
+### Ejecutar las pruebas
+- Abre la colección "E2E Tests Shaila" en Postman.
+- Haz clic en "Runner" en la parte superior o haz clic en ... en el nombre de la colección y selecciona "Run collection".
+- Selecciona la colección "E2E Tests Shaila" y las variables de entorno configuradas.
+- Haz clic en "Run E2E-Tests-shaila" para ejecutar las pruebas E2E.
+
+Con estos pasos, podrás probar fácilmente la API utilizando las pruebas E2E proporcionadas en la colección de Postman.
 
 ## Construido Con
 Java 17

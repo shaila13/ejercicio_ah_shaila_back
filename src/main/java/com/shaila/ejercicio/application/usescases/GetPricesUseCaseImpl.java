@@ -19,17 +19,29 @@ import java.util.stream.Collectors;
 public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
     private final PriceRepositoryPort priceRepositoryPort;
 
+    /**
+     * Constructor de GetPricesUseCaseImpl.
+     *
+     * @param priceRepositoryPort Puerto para acceder a los precios.
+     */
     public GetPricesUseCaseImpl(PriceRepositoryPort priceRepositoryPort) {
         this.priceRepositoryPort = priceRepositoryPort;
     }
-
+    /**
+     * Obtiene información de precios para un producto y marca específicos en una fecha dada.
+     *
+     * @param brandId         ID de la marca.
+     * @param productId       ID del producto.
+     * @param applicationDate Fecha de aplicación para obtener los precios.
+     * @return {@link ResponsePriceDto} que contiene la información de precios.
+     */
     @Override
-    public ResponsePriceDto getPricesInfo(Long brandId,Long productId, String aplicationDate) {
+    public ResponsePriceDto getPricesInfo(Long brandId,Long productId, String applicationDate) {
 
         try {
 
             List<Price> priceList = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId, productId,
-                    LocalDateTime.parse(aplicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                    LocalDateTime.parse(applicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
             if (priceList.isEmpty()) {
                 throw new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados.");

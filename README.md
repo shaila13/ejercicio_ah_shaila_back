@@ -35,6 +35,67 @@ Para ejecutar la aplicación en tu máquina local, sigue estos pasos:
 ```
 La aplicación se ejecutará en http://localhost:8080/swagger-ui/index.html
 
+## Importar y Ejecutar el Proyecto en IntelliJ IDEA o Eclipse
+
+### Importar a IntelliJ IDEA:
+
+1. Clonar el Repositorio:
+
+```bash
+  git clone https://github.com/shaila13/ejercicio_ah_shaila_back.git
+```
+2. Abrir IntelliJ IDEA:
+
+Abre IntelliJ IDEA en tu ordenador.
+
+3. Importar el Proyecto:
+
+En la ventana de bienvenida, selecciona "Import Project".
+Navega hasta el directorio donde clonaste el repositorio y selecciona la carpeta del proyecto.
+Selecciona "Maven" como el modelo de proyecto y haz clic en "Next".
+Asegúrate de que las casillas "Import Maven projects automatically" y "Create modules from existing sources" estén marcadas.
+Haz clic en "Next" y luego en "Finish".
+
+4. Configurar el JDK (si es necesario):
+
+Si IntelliJ IDEA no detecta automáticamente el JDK, ve a File > Project Structure > Project Settings > Project y asegúrate de que el JDK esté configurado correctamente.
+
+5. Ejecutar la Aplicación:
+
+Abre la clase principal Application.java ubicada en src/main/java/com/shaila/ejercicio/Application.java.
+Haz clic con el botón derecho en la clase y selecciona "Run Application" para ejecutar la aplicación Spring Boot.
+
+6. Acceder a Swagger:
+
+Una vez que la aplicación esté en funcionamiento, puedes acceder a Swagger en tu navegador web: http://localhost:8080/swagger-ui/index.html
+Aquí encontrarás la documentación y podrás probar el endpoint de la APP.
+
+### Importar a Eclipse:
+
+1. Clonar el Repositorio:
+
+```bash
+  git clone https://github.com/shaila13/ejercicio_ah_shaila_back.git
+```
+2. Abrir Eclipse:
+
+Abre Eclipse en tu ordenador.
+
+3. Importar el Proyecto:
+Ve a File > Import > Existing Maven Projects.
+Navega hasta el directorio donde clonaste el repositorio y selecciona la carpeta del proyecto.
+Haz clic en "Finish" para importar el proyecto.
+
+4. Ejecutar la Aplicación:
+
+Abre la clase principal Application.java ubicada en src/main/java/com/shaila/ejercicio/Application.java.
+Haz clic con el botón derecho en la clase y selecciona "Run As" > "Java Application" para ejecutar la aplicación Spring Boot.
+
+5. Acceder a Swagger:
+
+Una vez que la aplicación esté en funcionamiento, puedes acceder a Swagger en tu navegador web: http://localhost:8080/swagger-ui/index.html
+Aquí encontrarás la documentación y podrás probar el endpoint de la APP.
+
 ## Uso
 Una vez que la aplicación esté en funcionamiento, se pueden enviar solicitudes HTTP para consultar precios utilizando el endpoint REST proporcionado.
 

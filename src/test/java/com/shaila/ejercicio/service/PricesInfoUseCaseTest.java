@@ -32,11 +32,13 @@ class PricesInfoUseCaseTest {
 
 	Long brandId = 1L;
 	Long productId = 35455L;
+	Long brandIdWrong = null;
+	Long productIdWrong = null;
+
 	String applicationDate = "2020-06-14 00:00:00";
 	String applicationDateWrong = "2020-06-14-00:00:00";
 	Price price ;
 	Price price2 ;
-
 	PriceDto priceDto;
 	List<Price> priceList ;
 
@@ -96,5 +98,21 @@ class PricesInfoUseCaseTest {
 				.thenReturn(Optional.of(Collections.singletonList(price)));
 		assertThrows(InvalidParameterException.class,
 				() -> getPricesUseCase.getPricesInfo(brandId, productId, applicationDateWrong));
+	}
+
+	@Test
+	public void shouldReturnInvalidParameterExceptionWhenCalledWithNoValidBrandId() {
+		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
+				.thenReturn(Optional.of(Collections.singletonList(price)));
+		assertThrows(InvalidParameterException.class,
+				() -> getPricesUseCase.getPricesInfo(brandIdWrong, productId, applicationDate));
+	}
+
+	@Test
+	public void shouldReturnInvalidParameterExceptionWhenCalledWithNoValidProductId() {
+		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
+				.thenReturn(Optional.of(Collections.singletonList(price)));
+		assertThrows(InvalidParameterException.class,
+				() -> getPricesUseCase.getPricesInfo(brandId, productIdWrong, applicationDate));
 	}
 }

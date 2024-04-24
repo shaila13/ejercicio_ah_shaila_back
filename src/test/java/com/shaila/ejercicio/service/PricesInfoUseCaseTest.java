@@ -9,6 +9,7 @@ import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
 import com.shaila.ejercicio.infraestructure.exception.InvalidParameterException;
 import com.shaila.ejercicio.infraestructure.exception.PriceNotFoundException;
 import com.shaila.ejercicio.infraestructure.repositories.JpaPriceRepositoryAdapter;
+import com.shaila.ejercicio.infraestructure.utils.DataConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,8 +33,8 @@ class PricesInfoUseCaseTest {
 
 	Long brandId = 1L;
 	Long productId = 35455L;
-	Long brandIdWrong = null;
-	Long productIdWrong = null;
+	String brandIdWrong = null;
+	String productIdWrong = null;
 
 	String applicationDate = "2020-06-14 00:00:00";
 	String applicationDateWrong = "2020-06-14-00:00:00";
@@ -75,7 +76,7 @@ class PricesInfoUseCaseTest {
 	public void shouldReturnPricesWhenCalledWithValidParameters(){
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
 				.thenReturn(Optional.of(Collections.singletonList(price)));
-		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, applicationDate);
+		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss") );
 		assertNotNull(result);
 		assertNotNull(result.getPrice());
 		assertEquals(35.50, result.getPrice().getPrice());
@@ -89,7 +90,7 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(Optional.empty());
 		assertThrows(PriceNotFoundException.class,
-				() -> getPricesUseCase.getPricesInfo(brandId, productId, applicationDate));
+				() -> getPricesUseCase.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
 	}
 
 	@Test
@@ -97,7 +98,7 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
 				.thenReturn(Optional.of(Collections.singletonList(price)));
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(brandId, productId, applicationDateWrong));
+				() -> getPricesUseCase.getPricesInfo(brandId, productId,  DataConverter.getDate(applicationDateWrong, "yyyy-MM-dd HH:mm:ss")));
 	}
 
 	@Test
@@ -105,7 +106,8 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
 				.thenReturn(Optional.of(Collections.singletonList(price)));
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(brandIdWrong, productId, applicationDate));
+				() -> getPricesUseCase.getPricesInfo(DataConverter.validateNumericParameters(brandIdWrong) , productId,
+						DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
 	}
 
 	@Test
@@ -113,6 +115,7 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
 				.thenReturn(Optional.of(Collections.singletonList(price)));
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(brandId, productIdWrong, applicationDate));
+				() -> getPricesUseCase.getPricesInfo(brandId,DataConverter.validateNumericParameters(productIdWrong),
+						DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
 	}
 }

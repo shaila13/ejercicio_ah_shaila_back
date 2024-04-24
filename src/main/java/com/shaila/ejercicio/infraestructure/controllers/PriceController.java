@@ -3,6 +3,7 @@ package com.shaila.ejercicio.infraestructure.controllers;
 
 import com.shaila.ejercicio.application.services.PriceService;
 import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
+import com.shaila.ejercicio.infraestructure.utils.DataConverter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -40,12 +41,17 @@ public class PriceController {
     @Operation(summary="Consultar precio final de un producto para una cadena textil en una fecha específica")
     @GetMapping
     public ResponseEntity<ResponsePriceDto> getInfoPrices(
-            @RequestParam Long brandId,
-            @RequestParam Long productId,
+            @RequestParam String brandId,
+            @RequestParam String productId,
             @RequestParam String applicationDate) {
         log.info("Consultando precio para brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
-        ResponsePriceDto response = priceService.getPricesInfo(brandId, productId, applicationDate);
+
+        ResponsePriceDto response = priceService.getPricesInfo(
+                DataConverter.validateNumericParameters(brandId),
+                DataConverter.validateNumericParameters(productId),
+                DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss"));
         return ResponseEntity.ok(response);
     }
+
 
 }

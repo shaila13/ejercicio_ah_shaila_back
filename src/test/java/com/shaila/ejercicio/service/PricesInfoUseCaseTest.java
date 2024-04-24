@@ -1,7 +1,7 @@
 package com.shaila.ejercicio.service;
 
 import com.shaila.ejercicio.application.services.PriceService;
-import com.shaila.ejercicio.application.usescases.GetPricesUseCaseImpl;
+import com.shaila.ejercicio.application.usescases.GetPricesInfoUseCaseImpl;
 import com.shaila.ejercicio.domain.models.Price;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
 import com.shaila.ejercicio.infraestructure.dto.PriceDto;
@@ -52,7 +52,7 @@ class PricesInfoUseCaseTest {
 	PriceService priceService;
 
 	@InjectMocks
-	GetPricesUseCaseImpl getPricesUseCase;
+	GetPricesInfoUseCaseImpl getPricesUseCase;
 
 	@BeforeEach
 	void setUp() {
@@ -67,7 +67,7 @@ class PricesInfoUseCaseTest {
 		responsePriceDto = new ResponsePriceDto(priceDto);
 		priceRepositoryPort = mock(PriceRepositoryPort.class);
 		jpaPriceRepositoryAdapter = mock(JpaPriceRepositoryAdapter.class);
-		getPricesUseCase = new GetPricesUseCaseImpl(priceRepositoryPort);
+		getPricesUseCase = new GetPricesInfoUseCaseImpl(priceRepositoryPort);
 		priceService = new PriceService(getPricesUseCase);
 	}
 

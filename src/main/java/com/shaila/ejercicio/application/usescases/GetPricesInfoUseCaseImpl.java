@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 
-public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
+public class GetPricesInfoUseCaseImpl implements GetPricesInfoUseCase {
     private final PriceRepositoryPort priceRepositoryPort;
 
     /**
@@ -22,7 +22,7 @@ public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
      *
      * @param priceRepositoryPort Puerto para acceder a los precios.
      */
-    public GetPricesUseCaseImpl(PriceRepositoryPort priceRepositoryPort) {
+    public GetPricesInfoUseCaseImpl(PriceRepositoryPort priceRepositoryPort) {
         this.priceRepositoryPort = priceRepositoryPort;
     }
     /**
@@ -69,7 +69,7 @@ public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
      */
     public static Long validateNumericParameters(Long valor) {
         return Optional.ofNullable(valor)
-                .filter(v -> String.valueOf(v).matches("?\\d+"))
+                .filter(v -> String.valueOf(v).matches("-?\\d+"))
                 .orElseThrow(() -> new InvalidParameterException("El parámetro debe ser numérico."));
     }
 

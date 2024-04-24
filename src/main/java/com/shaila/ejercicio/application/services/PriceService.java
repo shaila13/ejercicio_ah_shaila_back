@@ -4,6 +4,8 @@ package com.shaila.ejercicio.application.services;
 import com.shaila.ejercicio.domain.ports.in.GetPricesInfoUseCase;
 import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
 
+import java.time.LocalDateTime;
+
 
 /**
  * Implementación de la interfaz {@link GetPricesInfoUseCase}.
@@ -30,7 +32,7 @@ public class PriceService implements GetPricesInfoUseCase {
      * @return {@link ResponsePriceDto} que contiene la información de precios.
      */
     @Override
-    public ResponsePriceDto getPricesInfo(Long brandId, Long productId, String applicationDate) {
+    public ResponsePriceDto getPricesInfo(Long brandId, Long productId, LocalDateTime applicationDate) {
         return getPricesInfoUseCase.getPricesInfo(brandId, productId, applicationDate);
     }
 }

@@ -129,6 +129,7 @@ Por ejemplo:
 GET /prices?brandId=1&productId=35455&applicationDate=2022-01-01 10:00:00
 
 ## Respuesta Exitosa
+```bash
 {
   "prices": [
     {
@@ -150,11 +151,14 @@ GET /prices?brandId=1&productId=35455&applicationDate=2022-01-01 10:00:00
   ]
 }
 
+```
 ## Respuestas de Error
+```bash
 404 Not Found
 Cuerpo: { "status": "404", "message": "No se encontraron precios para los parámetros proporcionados." }
 400 Bad Request
 Cuerpo: { "status": "400", "message": "Formato de fecha incorrecto. Se esperaba 'yyyy-MM-dd HH:mm:ss'." }
+```
 
 ## API Postman Collection E2E-Tests-shaila
 

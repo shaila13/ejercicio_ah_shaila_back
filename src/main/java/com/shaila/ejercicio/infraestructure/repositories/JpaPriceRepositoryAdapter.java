@@ -2,7 +2,6 @@ package com.shaila.ejercicio.infraestructure.repositories;
 
 import com.shaila.ejercicio.domain.models.Price;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
-import com.shaila.ejercicio.infraestructure.entities.Prices;
 import com.shaila.ejercicio.infraestructure.mappers.PriceDataAccessMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
@@ -39,7 +38,7 @@ public class JpaPriceRepositoryAdapter implements PriceRepositoryPort {
     public Optional<List<Price>> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate) {
         log.info("Consultando precios para brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
 
-        Optional<List<Prices>> optionalPricesList = jpaPriceRepository
+        var optionalPricesList = jpaPriceRepository
                 .findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc(brandId, productId, applicationDate);
 
         return optionalPricesList.map(pricesList ->

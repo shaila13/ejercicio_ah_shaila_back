@@ -37,13 +37,18 @@ public class GetPricesUseCaseImpl implements GetPricesInfoUseCase {
      */
     @Override
     public ResponsePriceDto getPricesInfo(Long brandId, Long productId, String applicationDate) {
-        try {
-            Optional<Price> optionalPrice = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId, productId,
-                    LocalDateTime.parse(applicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).flatMap(list -> list.stream().findFirst());
 
-            Price price = optionalPrice.stream().findFirst().orElseThrow(() -> new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados."));
+            var optionalPrice = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId, productId,
+                    getDate(applicationDate,"yyyy-MM-dd HH:mm:ss")).flatMap(list -> list.stream().findFirst());
+
+            var price = optionalPrice.stream().findFirst().orElseThrow(() -> new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados."));
 
             return new ResponsePriceDto(PriceDataAccessMapper.toPriceDto(price));
+
+    }
+    public static LocalDateTime getDate(String date, String pattern) {
+        try {
+            return LocalDateTime.parse(date, DateTimeFormatter.ofPattern(pattern));
         } catch (DateTimeParseException e) {
             throw new InvalidParameterException("Formato de fecha incorrecto. Se esperaba 'yyyy-MM-dd HH:mm:ss'.");
         }

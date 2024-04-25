@@ -1,7 +1,7 @@
 package com.shaila.ejercicio.infraestructure.mappers;
 
 import com.shaila.ejercicio.domain.models.Price;
-import com.shaila.ejercicio.infraestructure.dto.PriceDto;
+import com.shaila.ejercicio.domain.models.PriceDto;
 import com.shaila.ejercicio.infraestructure.entities.Prices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

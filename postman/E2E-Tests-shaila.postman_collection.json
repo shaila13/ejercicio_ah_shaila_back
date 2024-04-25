@@ -26,7 +26,6 @@
 							"    pm.expect(response.price).to.be.an('object');\r",
 							"});\r",
 							"\r",
-							"\r",
 							"pm.test(\"Should contain the correct productId in the response\", function () {\r",
 							"    pm.expect(response.price.productId).to.be.a(\"number\");\r",
 							"    pm.expect(response.price.productId).to.eql(35455);\r",
@@ -57,6 +56,7 @@
 							"    pm.expect(response.price.price).to.be.a(\"number\");\r",
 							"    pm.expect(response.price.price).to.eql(35.5);\r",
 							"});\r",
+							"\r",
 							""
 						],
 						"type": "text/javascript",
@@ -452,6 +452,116 @@
 						{
 							"key": "applicationDate",
 							"value": "2020-06-16%2021%3A00%3A00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 6: No se encuentran resultados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Content-Type header is present\", () => {\r",
+							"  pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Should return NOT_FOUND\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.expect(response.status).to.eql(\"NOT_FOUND\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/prices?brandId=2&productId=35455&applicationDate=2020-06-14%2010%3A00%3A00",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"prices"
+					],
+					"query": [
+						{
+							"key": "brandId",
+							"value": "2"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						},
+						{
+							"key": "applicationDate",
+							"value": "2020-06-14%2010%3A00%3A00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 7: Parámetros inválidos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Content-Type header is present\", () => {\r",
+							"  pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should return InvalidParameterException\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.expect(response.status).to.eql(\"BAD_REQUEST\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/prices?brandId=2&productId=35455&applicationDate=2020-06-14%2010%3A00%3A00-",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"prices"
+					],
+					"query": [
+						{
+							"key": "brandId",
+							"value": "2"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						},
+						{
+							"key": "applicationDate",
+							"value": "2020-06-14%2010%3A00%3A00-"
 						}
 					]
 				}

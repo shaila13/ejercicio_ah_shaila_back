@@ -3,7 +3,7 @@ package com.shaila.ejercicio.application.usescases;
 
 import com.shaila.ejercicio.domain.ports.in.GetPricesInfoUseCase;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
-import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
+import com.shaila.ejercicio.domain.models.ResponsePriceDto;
 import com.shaila.ejercicio.infraestructure.exception.PriceNotFoundException;
 import com.shaila.ejercicio.infraestructure.mappers.PriceDataAccessMapper;
 

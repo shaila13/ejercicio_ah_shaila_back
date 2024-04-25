@@ -1,10 +1,9 @@
-package com.shaila.ejercicio.infraestructure.dto;
+package com.shaila.ejercicio.domain.models;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Clase DTO (Data Transfer Object) que representa la respuesta de precios.

@@ -1,6 +1,6 @@
 package com.shaila.ejercicio.infraestructure.exception;
 
-import com.shaila.ejercicio.infraestructure.dto.ErrorDto;
+import com.shaila.ejercicio.domain.models.ErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

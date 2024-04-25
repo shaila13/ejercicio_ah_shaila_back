@@ -1,8 +1,8 @@
 package com.shaila.ejercicio.infraestructure.controllers;
 
 
-import com.shaila.ejercicio.application.services.PriceService;
-import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
+import com.shaila.ejercicio.domain.models.ResponsePriceDto;
+import com.shaila.ejercicio.domain.ports.in.GetPricesInfoUseCase;
 import com.shaila.ejercicio.infraestructure.utils.DataConverter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class PriceController {
 
-    private final PriceService priceService;
+    private final GetPricesInfoUseCase getPricesInfoUseCase;
 
     /**
      * Constructor de la clase PriceController.
      *
-     * @param priceService Servicio de precios para realizar operaciones.
+     * @param getPricesInfoUseCase Servicio de precios para realizar operaciones.
      */
-    public PriceController(PriceService priceService) {
-        this.priceService = priceService;
+    public PriceController(GetPricesInfoUseCase getPricesInfoUseCase) {
+        this.getPricesInfoUseCase = getPricesInfoUseCase;
     }
     /**
      * Consulta el precio final de un producto para una marca en una fecha específica.
@@ -46,7 +46,7 @@ public class PriceController {
             @RequestParam String applicationDate) {
         log.info("Consultando precio para brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
 
-        ResponsePriceDto response = priceService.getPricesInfo(
+        ResponsePriceDto response = getPricesInfoUseCase.getPricesInfo(
                 DataConverter.validateNumericParameters(brandId),
                 DataConverter.validateNumericParameters(productId),
                 DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss"));

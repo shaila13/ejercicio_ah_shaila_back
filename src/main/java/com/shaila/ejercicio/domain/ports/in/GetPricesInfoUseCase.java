@@ -1,6 +1,6 @@
 package com.shaila.ejercicio.domain.ports.in;
 
-import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
+import com.shaila.ejercicio.domain.models.ResponsePriceDto;
 
 import java.time.LocalDateTime;
 

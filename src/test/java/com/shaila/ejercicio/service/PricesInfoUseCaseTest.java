@@ -1,11 +1,10 @@
 package com.shaila.ejercicio.service;
 
-import com.shaila.ejercicio.application.services.PriceService;
 import com.shaila.ejercicio.application.usescases.GetPricesInfoUseCaseImpl;
 import com.shaila.ejercicio.domain.models.Price;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
-import com.shaila.ejercicio.infraestructure.dto.PriceDto;
-import com.shaila.ejercicio.infraestructure.dto.ResponsePriceDto;
+import com.shaila.ejercicio.domain.models.PriceDto;
+import com.shaila.ejercicio.domain.models.ResponsePriceDto;
 import com.shaila.ejercicio.infraestructure.exception.InvalidParameterException;
 import com.shaila.ejercicio.infraestructure.exception.PriceNotFoundException;
 import com.shaila.ejercicio.infraestructure.repositories.JpaPriceRepositoryAdapter;
@@ -49,8 +48,6 @@ class PricesInfoUseCaseTest {
 
 	@MockBean(name = "jpaPriceRepositoryAdapter")
 	JpaPriceRepositoryAdapter jpaPriceRepositoryAdapter;
-	@InjectMocks
-	PriceService priceService;
 
 	@InjectMocks
 	GetPricesInfoUseCaseImpl getPricesUseCase;
@@ -69,14 +66,13 @@ class PricesInfoUseCaseTest {
 		priceRepositoryPort = mock(PriceRepositoryPort.class);
 		jpaPriceRepositoryAdapter = mock(JpaPriceRepositoryAdapter.class);
 		getPricesUseCase = new GetPricesInfoUseCaseImpl(priceRepositoryPort);
-		priceService = new PriceService(getPricesUseCase);
 	}
 
 	@Test
 	public void shouldReturnPricesWhenCalledWithValidParameters(){
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
 				.thenReturn(Optional.of(Collections.singletonList(price)));
-		ResponsePriceDto result = priceService.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss") );
+		ResponsePriceDto result = getPricesUseCase.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss") );
 		assertNotNull(result);
 		assertNotNull(result.getPrice());
 		assertEquals(35.50, result.getPrice().getPrice());

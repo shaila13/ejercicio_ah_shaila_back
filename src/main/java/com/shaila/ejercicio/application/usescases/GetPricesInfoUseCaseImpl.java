@@ -3,7 +3,7 @@ package com.shaila.ejercicio.application.usescases;
 
 import com.shaila.ejercicio.domain.ports.in.GetPricesInfoUseCase;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
-import com.shaila.ejercicio.domain.models.ResponsePriceDto;
+import com.shaila.ejercicio.domain.models.ResponsePrice;
 import com.shaila.ejercicio.infraestructure.exception.PriceNotFoundException;
 import com.shaila.ejercicio.infraestructure.mappers.PriceDataAccessMapper;
 
@@ -27,17 +27,17 @@ public class GetPricesInfoUseCaseImpl implements GetPricesInfoUseCase {
      * @param brandId         ID de la marca.
      * @param productId       ID del producto.
      * @param applicationDate Fecha de aplicación para obtener los precios.
-     * @return {@link ResponsePriceDto} que contiene la información de precios.
+     * @return {@link ResponsePrice} que contiene la información de precios.
      */
     @Override
-    public ResponsePriceDto getPricesInfo(Long brandId, Long productId, LocalDateTime applicationDate) {
+    public ResponsePrice getPricesInfo(Long brandId, Long productId, LocalDateTime applicationDate) {
 
             var optionalPrice = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId,
                     productId,applicationDate).flatMap(list -> list.stream().findFirst());
 
             var price = optionalPrice.stream().findFirst().orElseThrow(() -> new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados."));
 
-            return new ResponsePriceDto(PriceDataAccessMapper.toPriceDto(price));
+            return new ResponsePrice(PriceDataAccessMapper.toPriceDto(price));
 
     }
 

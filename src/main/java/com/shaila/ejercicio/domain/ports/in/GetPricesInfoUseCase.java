@@ -1,6 +1,6 @@
 package com.shaila.ejercicio.domain.ports.in;
 
-import com.shaila.ejercicio.domain.models.ResponsePriceDto;
+import com.shaila.ejercicio.domain.models.ResponsePrice;
 
 import java.time.LocalDateTime;
 
@@ -17,5 +17,5 @@ public interface GetPricesInfoUseCase {
      * @param applicationDate Fecha de aplicación para la cual se buscan los precios.
      * @return DTO de respuesta que contiene la información de precios.
      */
-    ResponsePriceDto getPricesInfo(Long brandId, Long productId, LocalDateTime applicationDate);
+    ResponsePrice getPricesInfo(Long brandId, Long productId, LocalDateTime applicationDate);
 }

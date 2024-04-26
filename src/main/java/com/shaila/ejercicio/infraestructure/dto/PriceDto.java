@@ -1,4 +1,4 @@
-package com.shaila.ejercicio.domain.models;
+package com.shaila.ejercicio.infraestructure.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,6 +25,8 @@ public class PriceDto implements Serializable {
      * Identificador código de producto.
      */
     Long productId;
+
+
 
     /**
      * Identificador de la cadena.

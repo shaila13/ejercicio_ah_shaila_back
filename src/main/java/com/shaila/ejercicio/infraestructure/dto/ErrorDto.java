@@ -1,4 +1,4 @@
-package com.shaila.ejercicio.domain.models;
+package com.shaila.ejercicio.infraestructure.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

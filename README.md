@@ -15,7 +15,8 @@ Este caso de uso permite a un usuario consultar el precio actual de un producto 
 
 Actores: Usuario
 
-![Consultar el precio aplicable de un producto.]([url completa de la imagen](https://github.com/shaila13/ejercicio_ah_shaila_back/blob/main/GetPricesInfoUseCase.png))
+![Consultar el precio aplicable de un producto.](https://github.com/shaila13/ejercicio_ah_shaila_back/blob/main/GetPricesInfoUseCase.png)
+
 
 ## Diagrama de Flujo
 
@@ -23,7 +24,7 @@ Consultar Precio Actual
 
 Este diagrama de flujo representa el flujo de interacción entre el usuario y el sistema para consultar el precio actual de un producto.
 
-![]([url completa de la imagen](https://github.com/shaila13/ejercicio_ah_shaila_back/blob/main/GetPricesInfo.png))
+![Consultar Precio Actual.](https://github.com/shaila13/ejercicio_ah_shaila_back/blob/main/GetPricesInfo.png)
 
 ## Instalación
 Para ejecutar la aplicación en tu máquina local, sigue estos pasos:

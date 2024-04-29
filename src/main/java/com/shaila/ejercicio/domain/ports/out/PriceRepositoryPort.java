@@ -2,24 +2,22 @@ package com.shaila.ejercicio.domain.ports.out;
 
 import com.shaila.ejercicio.domain.models.Price;
 
-
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 /**
- * Interfaz que define los métodos para acceder a los datos de precios en la capa de acceso a datos.
- * Implementaciones de esta interfaz proporcionan la lógica para recuperar precios de la fuente de datos subyacente.
+ * Interface defining methods for accessing price data in the data access layer.
+ * Implementations of this interface provide the logic for retrieving prices.
  */
 public interface PriceRepositoryPort {
    /**
-    * Busca una lista de precios para una marca y producto específicos en una fecha de aplicación dada.
+    * Finds price information for a specific brand, product, and application date.
     *
-    * @param brandId         El ID de la marca.
-    * @param productId       El ID del producto.
-    * @param applicationDate La fecha de aplicación para la cual se buscan los precios.
-    * @return Un {@link Optional} que contiene una lista de {@link Price} si se encuentran precios para los
-    *         parámetros proporcionados, o un {@link Optional} vacío si no se encontraron precios.
+    * @param brandId         The brand ID.
+    * @param productId       The product ID.
+    * @param applicationDate The application date for which prices are sought.
+    * @return An {@link Optional} containing the price information if prices are found for the provided
+    *         parameters, or an empty {@link Optional} if no prices are found.
     */
-   Optional<List<Price>> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate);
+   Optional<Price> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate);
 
 }

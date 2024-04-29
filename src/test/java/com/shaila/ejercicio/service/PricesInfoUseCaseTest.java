@@ -71,7 +71,7 @@ class PricesInfoUseCaseTest {
 	@Test
 	public void shouldReturnPricesWhenCalledWithValidParameters(){
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
-				.thenReturn(Optional.of(Collections.singletonList(price)));
+				.thenReturn(Optional.ofNullable(price));
 		ResponsePrice result = getPricesUseCase.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss") );
 		assertNotNull(result);
 		assertNotNull(result.getPrice());
@@ -92,7 +92,7 @@ class PricesInfoUseCaseTest {
 	@Test
 	public void shouldReturnInvalidParameterExceptionWhenCalledWithNoValidDates() {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
-				.thenReturn(Optional.of(Collections.singletonList(price)));
+				.thenReturn(Optional.ofNullable(price));
 		assertThrows(InvalidParameterException.class,
 				() -> getPricesUseCase.getPricesInfo(brandId, productId,  DataConverter.getDate(applicationDateWrong, "yyyy-MM-dd HH:mm:ss")));
 	}
@@ -100,7 +100,7 @@ class PricesInfoUseCaseTest {
 	@Test
 	public void shouldReturnInvalidParameterExceptionWhenCalledWithNoValidBrandId() {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
-				.thenReturn(Optional.of(Collections.singletonList(price)));
+				.thenReturn(Optional.ofNullable(price));
 		assertThrows(InvalidParameterException.class,
 				() -> getPricesUseCase.getPricesInfo(DataConverter.validateNumericParameters(brandIdWrong) , productId,
 						DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
@@ -109,7 +109,7 @@ class PricesInfoUseCaseTest {
 	@Test
 	public void shouldReturnInvalidParameterExceptionWhenCalledWithNoValidProductId() {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
-				.thenReturn(Optional.of(Collections.singletonList(price)));
+				.thenReturn(Optional.ofNullable(price));
 		assertThrows(InvalidParameterException.class,
 				() -> getPricesUseCase.getPricesInfo(brandId,DataConverter.validateNumericParameters(productIdWrong),
 						DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));

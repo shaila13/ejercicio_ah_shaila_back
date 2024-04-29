@@ -9,33 +9,33 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 /**
- * Clase que maneja las excepciones globales de la aplicación.
- * Define métodos para manejar excepciones específicas, como PriceNotFoundException y InvalidParameterException.
+ * Class that handles global exceptions of the application.
+ * Defines methods to handle specific exceptions, such as PriceNotFoundException and InvalidParameterException.
  */
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
     /**
-     * Maneja la excepción PriceNotFoundException.
+     * Handles the PriceNotFoundException exception.
      *
-     * @param ex Excepción PriceNotFoundException.
-     * @return ResponseEntity con un objeto ErrorDto y el estado HTTP 404 NOT FOUND.
+     * @param ex The PriceNotFoundException exception.
+     * @return ResponseEntity with an ErrorDto object and HTTP status 404 NOT FOUND.
      */
     @ExceptionHandler(PriceNotFoundException.class)
     public ResponseEntity<Object> handlePriceNotFoundException(PriceNotFoundException ex) {
-        log.error("Precio no encontrado: {}", ex.getMessage());
+        log.error("Price not found: {}", ex.getMessage());
         ErrorDto apiError = new ErrorDto(HttpStatus.NOT_FOUND, ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
     /**
-     * Maneja la excepción InvalidParameterException.
+     * Handles the InvalidParameterException exception.
      *
-     * @param ex Excepción InvalidParameterException.
-     * @return ResponseEntity con un objeto ErrorDto y el estado HTTP 400 BAD REQUEST.
+     * @param ex The InvalidParameterException exception.
+     * @return ResponseEntity with an ErrorDto object and HTTP status 400 BAD REQUEST.
      */
     @ExceptionHandler(InvalidParameterException.class)
     public ResponseEntity<Object> handleInvalidParameterException(InvalidParameterException ex) {
-        log.error("Parámetro inválido: {}", ex.getMessage());
+        log.error("Invalid parameter: {}", ex.getMessage());
 
         ErrorDto apiError = new ErrorDto(HttpStatus.BAD_REQUEST, ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(apiError, apiError.getStatus());

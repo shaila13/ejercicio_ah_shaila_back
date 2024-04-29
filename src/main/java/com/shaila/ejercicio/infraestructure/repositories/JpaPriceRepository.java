@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 /**
  * Repositorio JPA para acceder a los datos de precios en la base de datos.
@@ -24,8 +23,8 @@ public interface JpaPriceRepository extends JpaRepository<Prices, Long> {
      * @param applicationDate Fecha de aplicación para la cual se buscan los precios.
      * @return Lista de precios que coinciden con los parámetros proporcionados, ordenados por prioridad descendente.
      */
-    @Query("SELECT p FROM Prices p WHERE p.brandId = :brandId AND p.productId = :productId AND :applicationDate between p.startDate and p.endDate ORDER BY p.priority DESC")
-    Optional<List<Prices>> findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc
+    @Query("SELECT p FROM Prices p WHERE p.brandId = :brandId AND p.productId = :productId AND :applicationDate between p.startDate and p.endDate ORDER BY p.priority DESC LIMIT 1")
+    Optional<Prices> findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc
             (@Param("brandId") Long brandId,@Param("productId") Long productId, @Param("applicationDate") LocalDateTime
                     applicationDate);
 }

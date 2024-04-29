@@ -10,8 +10,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Clase DTO (Data Transfer Object) que representa un precio.
- * Contiene información sobre el producto, la marca, la lista de precios, la fecha de inicio, la fecha de fin y el precio.
+ * DTO (Data Transfer Object) class representing a price.
+ * Contains information about the product, brand, price list, start date, end date, and price.
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,34 +22,32 @@ public class PriceDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Identificador código de producto.
+     * Product ID.
      */
     Long productId;
 
-
-
     /**
-     * Identificador de la cadena.
+     * Brand ID.
      */
     Long brandId;
 
     /**
-     * Identificador de la tarifa de precios aplicable.
+     * Price list ID.
      */
     int priceList;
 
     /**
-     * Fecha de inicio en el que aplica el precio tarifa indicado.
+     * Start date when the price list applies.
      */
     LocalDateTime startDate;
 
     /**
-     * Fecha de fin en el que aplica el precio tarifa indicado.
+     * End date when the price list applies.
      */
     LocalDateTime endDate;
 
     /**
-     * Precio final de venta.
+     * Final selling price.
      */
     Double price;
 

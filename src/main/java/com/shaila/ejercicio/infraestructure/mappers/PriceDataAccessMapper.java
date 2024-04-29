@@ -7,33 +7,33 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * Clase encargada de mapear entre los objetos del dominio y los objetos de acceso a datos (DTO y entidades).
- * Contiene métodos estáticos para convertir entre Price, PriceDto y Prices.
+ * Class responsible for mapping between domain objects and data access objects (DTOs and entities).
+ * Contains static methods to convert between Price, PriceDto, and Prices.
  */
 @Component
 @Slf4j
 public class PriceDataAccessMapper {
     /**
-     * Convierte un objeto Prices en un objeto Price del dominio.
+     * Converts a Prices object to a domain model Price.
      *
-     * @param priceEntity Objeto Prices a convertir.
-     * @return Objeto Price del dominio.
+     * @param priceEntity Prices object to convert.
+     * @return Domain model Price object.
      */
     public static Price toDomainModel(Prices priceEntity){
-        log.info("Mapeando Prices a Price: {}", priceEntity);
-        return new Price( priceEntity.getBrandId(), priceEntity.getStartDate(), priceEntity.getEndDate(),
-                priceEntity.getPriceList(),priceEntity.getProductId(), priceEntity.getPriority(),
+        log.info("Mapping Prices to Price: {}", priceEntity);
+        return new Price(priceEntity.getBrandId(), priceEntity.getStartDate(), priceEntity.getEndDate(),
+                priceEntity.getPriceList(), priceEntity.getProductId(), priceEntity.getPriority(),
                 priceEntity.getPrice(), priceEntity.getCurr());
     }
     /**
-     * Convierte un objeto Price del dominio en un objeto PriceDto.
+     * Converts a domain model Price object to a PriceDto object.
      *
-     * @param price Objeto Price del dominio a convertir.
-     * @return Objeto PriceDto resultante.
+     * @param price Domain model Price object to convert.
+     * @return Resulting PriceDto object.
      */
     public static PriceDto toPriceDto(Price price){
-        log.info("Mapeando Price a PriceDto: {}", price);
-        return new PriceDto(price.getProductId(),price.getBrandId(),price.getPriceList(), price.getStartDate(),
+        log.info("Mapping Price to PriceDto: {}", price);
+        return new PriceDto(price.getProductId(), price.getBrandId(), price.getPriceList(), price.getStartDate(),
                 price.getEndDate(), price.getPrice());
     }
 

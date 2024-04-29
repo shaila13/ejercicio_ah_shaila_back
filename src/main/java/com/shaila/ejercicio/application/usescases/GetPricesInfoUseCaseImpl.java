@@ -14,30 +14,26 @@ public class GetPricesInfoUseCaseImpl implements GetPricesInfoUseCase {
     private final PriceRepositoryPort priceRepositoryPort;
 
     /**
-     * Constructor de GetPricesUseCaseImpl.
+     * Constructor for GetPricesUseCaseImpl.
      *
-     * @param priceRepositoryPort Puerto para acceder a los precios.
+     * @param priceRepositoryPort Port to access prices.
      */
     public GetPricesInfoUseCaseImpl(PriceRepositoryPort priceRepositoryPort) {
         this.priceRepositoryPort = priceRepositoryPort;
     }
     /**
-     * Obtiene información de precios para un producto y marca específicos en una fecha dada.
+     * Retrieves price information for a specific product and brand on a given date.
      *
-     * @param brandId         ID de la marca.
-     * @param productId       ID del producto.
-     * @param applicationDate Fecha de aplicación para obtener los precios.
-     * @return {@link ResponsePrice} que contiene la información de precios.
+     * @param brandId         Brand ID.
+     * @param productId       Product ID.
+     * @param applicationDate Date of application to retrieve prices.
+     * @return {@link ResponsePrice} containing price information.
      */
     @Override
     public ResponsePrice getPricesInfo(Long brandId, Long productId, LocalDateTime applicationDate) {
-
-            var optionalPrice = priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId,
-                    productId,applicationDate).flatMap(list -> list.stream().findFirst());
-
-            var price = optionalPrice.stream().findFirst().orElseThrow(() -> new PriceNotFoundException("No se encontraron precios para los parámetros proporcionados."));
-
-            return new ResponsePrice(PriceDataAccessMapper.toPriceDto(price));
+            return new ResponsePrice(PriceDataAccessMapper.toPriceDto(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(brandId,
+                    productId,applicationDate).orElseThrow(() ->
+                    new PriceNotFoundException("No prices were found for the provided parameters."))));
 
     }
 

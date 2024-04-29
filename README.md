@@ -40,7 +40,6 @@ Para ejecutar la aplicaciónlicación en tu máquina local, sigue estos pasos:
   ./mvnw spring-boot:run
 ```
 
-
 ## Importar y Ejecutar el Proyecto en IntelliJ IDEA o Eclipse
 
 ### Importar a IntelliJ IDEA:

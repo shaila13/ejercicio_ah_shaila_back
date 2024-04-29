@@ -66,7 +66,7 @@ Haz clic con el botón derecho en la clase y selecciona "Run Application" para e
 
 1. Importar el Proyecto:
 Ve a File > Import > Existing Maven Projects.
-Navega hasta el directorio donde clonaste el repositorio y selecciona la carpeta del proyecto.
+Navega hasta el directorio donde clonaste el repositorio y selecciona el pom del proyecto.
 Haz clic en "Finish" para importar el proyecto.
 
 2. Ejecutar la Aplicación:

@@ -132,33 +132,29 @@ GET /prices?brandId=1&productId=35455&applicationDate=2022-01-01 10:00:00
 ## Respuesta Exitosa
 ```bash
 {
-  "prices": [
-    {
-      "productId": 35455,
-      "brandId": 1,
-      "priceList": 1,
-      "startDate": "2022-01-01T00:00:00",
-      "endDate": "2022-01-01T23:59:59",
-      "price": 35.50
-    },
-    {
-      "productId": 35455,
-      "brandId": 1,
-      "priceList": 2,
-      "startDate": "2022-01-01T15:00:00",
-      "endDate": "2022-01-01T18:30:00",
-      "price": 25.45
+    "price": {
+        "productId": 35455,
+        "brandId": 1,
+        "priceList": 1,
+        "startDate": "2020-06-14T00:00:00",
+        "endDate": "2020-12-31T23:59:59",
+        "price": 35.5
     }
-  ]
 }
 
 ```
 ## Respuestas de Error
 ```bash
-404 Not Found
-Cuerpo: { "status": "404", "message": "No se encontraron precios para los parámetros proporcionados." }
-400 Bad Request
-Cuerpo: { "status": "400", "message": "Formato de fecha incorrecto. Se esperaba 'yyyy-MM-dd HH:mm:ss'." }
+{
+    "status": "NOT_FOUND",
+    "message": "No prices were found for the provided parameters.",
+    "timestamp": "2024-04-29T13:47:04.4583627"
+}
+{
+    "status": "BAD_REQUEST",
+    "message": "Incorrect date format. Expected 'yyyy-MM-dd HH:mm:ss'.",
+    "timestamp": "2024-04-29T13:47:23.2061319"
+}
 ```
 
 ## API Postman Collection E2E-Tests-shaila

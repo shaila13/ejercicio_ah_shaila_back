@@ -1,6 +1,6 @@
 
 # Servicio de Consulta de Precios
-Este proyecto es una aplicación Spring Boot que proporciona un servicio REST para consultar precios en un sistema de comercio electrónicoque sigue la arquitectura hexagonal. Permite a los usuarios obtener información detallada sobre los precios de productos en diferentes marcas y fechas específicas. Utiliza una base de datos en memoria H2 para almacenar y recuperar los datos de precios de manera eficiente.
+Este proyecto es una aplicación Spring Boot que proporciona un servicio para consultar precios en un sistema de comercio electrónicoque sigue la arquitectura hexagonal. Permite a los usuarios obtener información detallada sobre los precios de productos en diferentes marcas y fechas específicas. Utiliza una base de datos en memoria H2 para almacenar y recuperar los datos de precios de manera eficiente.
 
 
 ## Características

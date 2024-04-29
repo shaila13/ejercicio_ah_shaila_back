@@ -7,7 +7,7 @@ Este proyecto es una aplicación Spring Boot que proporciona un servicio REST pa
 Consulta el precio actual de un producto en una cadena específica en una fecha determinada.
 Proporciona un servicio REST para consultar precios.
 Almacena los datos de precios en una base de datos H2 en memoria para una fácil administración y acceso.
-Se integra con Swagger para documentar la API y facilitar su uso.
+Se integra con Swagger para documentar la aplicación y facilitar su uso.
 
 ## Caso de Uso
 ### Consultar Precio Actual
@@ -27,7 +27,7 @@ Este diagrama de flujo representa el flujo de interacción entre el usuario y el
 ![Consultar Precio Actual.](https://github.com/shaila13/ejercicio_ah_shaila_back/blob/main/GetPricesInfo.png)
 
 ## Instalación
-Para ejecutar la aplicación en tu máquina local, sigue estos pasos:
+Para ejecutar la aplicaciónlicación en tu máquina local, sigue estos pasos:
 
 ```bash
   git clone https://github.com/shaila13/ejercicio_ah_shaila_back.git
@@ -69,7 +69,7 @@ Haz clic con el botón derecho en la clase y selecciona "Run Application" para e
 6. Acceder a Swagger:
 
 Una vez que la aplicación esté en funcionamiento, puedes acceder a Swagger en tu navegador web: http://localhost:8080/swagger-ui/index.html
-Aquí encontrarás la documentación y podrás probar el endpoint de la APP.
+Aquí encontrarás la documentación y podrás probar el endpoint de la aplicación.
 
 ### Importar a Eclipse:
 
@@ -95,7 +95,7 @@ Haz clic con el botón derecho en la clase y selecciona "Run As" > "Java Applica
 5. Acceder a Swagger:
 
 Una vez que la aplicación esté en funcionamiento, puedes acceder a Swagger en tu navegador web: http://localhost:8080/swagger-ui/index.html
-Aquí encontrarás la documentación y podrás probar el endpoint de la APP.
+Aquí encontrarás la documentación y podrás probar el endpoint de la aplicación.
 
 ## Uso
 Una vez que la aplicación esté en funcionamiento, se pueden enviar solicitudes HTTP para consultar precios utilizando el endpoint REST proporcionado.
@@ -157,7 +157,7 @@ GET /prices?brandId=1&productId=35455&applicationDate=2022-01-01 10:00:00
 }
 ```
 
-## API Postman Collection E2E-Tests-shaila
+## Postman Collection E2E-Tests-shaila
 
 ## Importar la colección de Postman
 
@@ -175,7 +175,7 @@ GET /prices?brandId=1&productId=35455&applicationDate=2022-01-01 10:00:00
    - Una vez importada, verás la colección "E2E Tests Shaila" en tu panel de colecciones en Postman.
 
 ## Ejecutar las pruebas E2E
-Puedes ejecutar las pruebas end-to-end (E2E) proporcionadas en la colección para probar la API. Asegúrate de configurar las variables de entorno necesarias antes de ejecutarlas.
+Puedes ejecutar las pruebas end-to-end (E2E) proporcionadas en la colección para probar la aplicación. Asegúrate de configurar las variables de entorno necesarias antes de ejecutarlas.
 
 ### Variables de entorno
 - Antes de ejecutar las pruebas, asegúrate de configurar las siguientes variables de entorno en Postman:
@@ -187,7 +187,7 @@ Puedes ejecutar las pruebas end-to-end (E2E) proporcionadas en la colección par
 - Selecciona la colección "E2E Tests Shaila" y las variables de entorno configuradas.
 - Haz clic en "Run E2E-Tests-shaila" para ejecutar las pruebas E2E.
 
-Con estos pasos, podrás probar fácilmente la API utilizando las pruebas E2E proporcionadas en la colección de Postman.
+Con estos pasos, podrás probar fácilmente la aplicación utilizando las pruebas E2E proporcionadas en la colección de Postman.
 
 ## Construido Con
 Java 17

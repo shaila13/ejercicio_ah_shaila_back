@@ -7,56 +7,54 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+
 /**
- * Clase que representa un modelo de precio.
- * Contiene información sobre la marca, fechas de inicio y fin, lista de precios, ID del producto, prioridad, precio y moneda.
+ * Class representing a price model.
+ * Contains information about the brand, start and end dates, price list, product ID, priority, price, and currency.
  */
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Price {
     /**
-     * Identificador de la cadena.
+     * Brand ID.
      */
     Long brandId;
 
     /**
-     * Fecha de inicio en el que aplica el precio tarifa indicado.
+     * Start date when the price applies.
      */
     LocalDateTime startDate;
 
     /**
-     * Fecha de fin en el que aplica el precio tarifa indicado.
+     * End date when the price applies.
      */
     LocalDateTime endDate;
 
     /**
-     * Identificador de la tarifa de precios aplicable.
+     * Price list ID.
      */
     int priceList;
 
     /**
-     * Identificador código de producto.
+     * Product ID.
      */
     Long productId;
 
     /**
-     * Desambiguador de aplicación de precios.
+     * Priority of the price.
      */
     int priority;
 
     /**
-     * Precio final de venta.
+     * Final selling price.
      */
     Double price;
 
     /**
-     * Iso de la moneda.
+     * Currency ISO.
      */
     String currency;
-
-
-    
-
 }

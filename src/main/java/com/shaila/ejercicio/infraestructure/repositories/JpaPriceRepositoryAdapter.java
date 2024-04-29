@@ -8,12 +8,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 /**
- * Adaptador de repositorio que implementa PriceRepositoryPort y utiliza JpaPriceRepository para interactuar con la base de datos.
- * Utiliza PriceDataAccessMapper para mapear entre los objetos del dominio y las entidades JPA.
+ * Repository adapter implementing PriceRepositoryPort and using JpaPriceRepository to interact with the database.
+ * It uses PriceDataAccessMapper to map between domain objects and JPA entities.
  */
 @Primary
 @Component
@@ -24,10 +22,10 @@ public class JpaPriceRepositoryAdapter implements PriceRepositoryPort {
 
     private final PriceDataAccessMapper priceDataAccessMapper;
     /**
-     * Constructor que recibe JpaPriceRepository y PriceDataAccessMapper.
+     * Constructor receiving JpaPriceRepository and PriceDataAccessMapper.
      *
-     * @param jpaPriceRepository  Repositorio JPA para acceder a los datos de precios.
-     * @param priceDataAccessMapper Mapper para convertir entre objetos del dominio y entidades JPA.
+     * @param jpaPriceRepository  JPA repository to access price data.
+     * @param priceDataAccessMapper Mapper to convert between domain objects and JPA entities.
      */
     public JpaPriceRepositoryAdapter(JpaPriceRepository jpaPriceRepository, PriceDataAccessMapper priceDataAccessMapper) {
         this.jpaPriceRepository = jpaPriceRepository;
@@ -35,17 +33,12 @@ public class JpaPriceRepositoryAdapter implements PriceRepositoryPort {
     }
 
     @Override
-    public Optional<List<Price>> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate) {
-        log.info("Consultando precios para brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
+    public Optional<Price> findByBrandIdAndProductIdDateApplication(Long brandId, Long productId, LocalDateTime applicationDate) {
+        log.info("Querying prices for brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
 
-        var optionalPricesList = jpaPriceRepository
-                .findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc(brandId, productId, applicationDate);
-
-        return optionalPricesList.map(pricesList ->
-                pricesList.stream()
-                        .map(PriceDataAccessMapper::toDomainModel)
-                        .collect(Collectors.toList())
-        );
+        return jpaPriceRepository
+                .findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc(brandId, productId, applicationDate)
+                .map(PriceDataAccessMapper::toDomainModel);
     }
 
 }

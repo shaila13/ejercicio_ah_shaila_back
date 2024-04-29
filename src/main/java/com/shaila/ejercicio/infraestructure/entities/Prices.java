@@ -10,10 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
 /**
- * Clase de entidad que representa la tabla "PRICES" en la base de datos.
- * Contiene información sobre precios, como ID, producto, marca, fechas de inicio y fin, precio, lista de precios, prioridad y moneda.
+ * Entity class representing the "PRICES" table in the database.
+ * It contains information about prices, such as ID, product, brand, start and end dates, price, price list, priority, and currency.
  */
 @Entity
 @Getter
@@ -21,61 +20,61 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "PRICES")
-public class Prices  implements Serializable {
+public class Prices implements Serializable {
 
     static final long serialVersionUID = 1L;
 
     /**
-     * ID único de la entrada de precios.
+     * Unique ID of the price entry.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long pricesId;
 
     /**
-     * ID del producto.
+     * ID of the product.
      */
     @NotNull
     Long productId;
 
     /**
-     * ID de la marca.
+     * ID of the brand.
      */
     @NotNull
     Long brandId;
 
     /**
-     * Fecha de inicio de la aplicación del precio.
+     * Start date of the price application.
      */
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime startDate;
 
     /**
-     * Fecha de fin de la aplicación del precio.
+     * End date of the price application.
      */
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime endDate;
 
     /**
-     * Precio.
+     * Price.
      */
     double price;
 
     /**
-     * Lista de precios.
+     * Price list.
      */
     int priceList;
 
     /**
-     * Prioridad del precio.
+     * Price priority.
      */
     int priority;
 
     /**
-     * Moneda del precio.
+     * Price currency.
      */
     String curr;
-    
+
 }

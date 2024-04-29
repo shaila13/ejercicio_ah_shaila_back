@@ -10,31 +10,31 @@ import com.shaila.ejercicio.infraestructure.exception.InvalidParameterException;
 public class DataConverter {
 
     /**
-     * Valida si el valor pasado es numérico.
+     * Validates if the passed value is numeric.
      *
-     * @param valor El valor a validar.
-     * @return El valor validado si es numérico.
-     * @throws InvalidParameterException Si el valor es nulo o no es numérico.
+     * @param value The value to validate.
+     * @return The validated value if it is numeric.
+     * @throws InvalidParameterException If the value is null or not numeric.
      */
-	public static Long validateNumericParameters(String valor) {
-		return Optional.ofNullable(valor)
+	public static Long validateNumericParameters(String value) {
+		return Optional.ofNullable(value)
                 .filter(v -> v.matches("-?\\d+"))
                 .map(Long::valueOf)
-                .orElseThrow(() -> new InvalidParameterException("El parámetro debe ser numérico."));
+                .orElseThrow(() -> new InvalidParameterException("The parameter must be numeric."));
 	}
 
-	/**
-     * Parsea una cadena a LocalDateTime usando el patrón especificado.
+    /**
+     * Parses a string to LocalDateTime using the specified pattern.
      *
-     * @param date    Cadena de fecha a parsear.
-     * @param pattern Patrón de formato de fecha.
-     * @return Objeto LocalDateTime parseado.
+     * @param date    Date string to parse.
+     * @param pattern Date format pattern.
+     * @return Parsed LocalDateTime object.
      */
 	public static LocalDateTime getDate(String date, String pattern) {
         try {
             return LocalDateTime.parse(date, DateTimeFormatter.ofPattern(pattern));
         } catch (DateTimeParseException e) {
-            throw new InvalidParameterException("Formato de fecha incorrecto. Se esperaba '" + pattern + "'.");
+            throw new InvalidParameterException("Incorrect date format. Expected '" + pattern + "'.");
         }
     }
 

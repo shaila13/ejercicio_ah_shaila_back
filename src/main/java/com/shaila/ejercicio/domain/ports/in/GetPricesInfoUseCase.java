@@ -5,17 +5,17 @@ import com.shaila.ejercicio.domain.models.ResponsePrice;
 import java.time.LocalDateTime;
 
 /**
- * Interfaz que define el caso de uso para obtener información de precios.
+ * Interface defining the use case for retrieving price information.
  */
 
 public interface GetPricesInfoUseCase {
     /**
-     * Método para obtener información de precios para una marca, producto y fecha de aplicación específicos.
+     * Method to retrieve price information for a specific brand, product, and application date.
      *
-     * @param brandId        ID de la marca.
-     * @param productId      ID del producto.
-     * @param applicationDate Fecha de aplicación para la cual se buscan los precios.
-     * @return DTO de respuesta que contiene la información de precios.
+     * @param brandId         Brand ID.
+     * @param productId       Product ID.
+     * @param applicationDate Date of application for which prices are sought.
+     * @return Response DTO containing price information.
      */
     ResponsePrice getPricesInfo(Long brandId, Long productId, LocalDateTime applicationDate);
 }

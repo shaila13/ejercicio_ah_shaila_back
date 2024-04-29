@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controlador REST para la gestión de precios.
+ * REST controller for price management.
  */
 
 @RestController
@@ -23,28 +23,28 @@ public class PriceController {
     private final GetPricesInfoUseCase getPricesInfoUseCase;
 
     /**
-     * Constructor de la clase PriceController.
+     * Constructor of the PriceController class.
      *
-     * @param getPricesInfoUseCase Servicio de precios para realizar operaciones.
+     * @param getPricesInfoUseCase Price service for performing operations.
      */
     public PriceController(GetPricesInfoUseCase getPricesInfoUseCase) {
         this.getPricesInfoUseCase = getPricesInfoUseCase;
     }
     /**
-     * Consulta el precio final de un producto para una marca en una fecha específica.
+     * Queries the final price of a product for a brand on a specific date.
      *
-     * @param brandId         ID de la marca.
-     * @param productId       ID del producto.
-     * @param applicationDate Fecha de aplicación para la cual se busca el precio.
-     * @return ResponseEntity con el DTO de respuesta que contiene la información del precio.
+     * @param brandId         Brand ID.
+     * @param productId       Product ID.
+     * @param applicationDate Date of application for which the price is sought.
+     * @return ResponseEntity with the response DTO containing price information.
      */
-    @Operation(summary="Consultar precio final de un producto para una cadena textil en una fecha específica")
+    @Operation(summary="Query final price of a product for a textile chain on a specific date")
     @GetMapping
     public ResponseEntity<ResponsePrice> getInfoPrices(
             @RequestParam String brandId,
             @RequestParam String productId,
             @RequestParam String applicationDate) {
-        log.info("Consultando precio para brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
+        log.info("Querying price for brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
 
         ResponsePrice response = getPricesInfoUseCase.getPricesInfo(
                 DataConverter.validateNumericParameters(brandId),

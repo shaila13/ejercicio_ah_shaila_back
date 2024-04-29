@@ -9,9 +9,10 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+
 /**
- * Clase que representa un objeto de transferencia de datos (DTO) para representar errores.
- * Este DTO contiene información sobre el estado HTTP, el mensaje de error y la marca de tiempo del error.
+ * Class representing a Data Transfer Object (DTO) for representing errors.
+ * This DTO contains information about the HTTP status, error message, and timestamp of the error.
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,17 +21,17 @@ import java.time.LocalDateTime;
 public class ErrorDto {
 
       /**
-       * Estado HTTP del error.
+       * HTTP status of the error.
        */
       HttpStatus status;
 
       /**
-       * Mensaje descriptivo del error.
+       * Descriptive message of the error.
        */
       String message;
 
       /**
-       * Marca de tiempo en la que ocurrió el error.
+       * Timestamp when the error occurred.
        */
       LocalDateTime timestamp;
 

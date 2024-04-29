@@ -1,16 +1,16 @@
 package com.shaila.ejercicio.infraestructure.exception;
+
 /**
- * Excepción personalizada para indicar que no se encontró un precio.
- * Se lanza cuando se busca un precio en la base de datos y no se encuentra ninguno para los parámetros proporcionados.
+ * Custom exception to indicate that a price was not found.
+ * It is thrown when searching for a price in the database and none is found for the provided parameters.
  */
 public class PriceNotFoundException extends RuntimeException {
     /**
-     * Constructor que acepta un mensaje de error.
+     * Constructor that accepts an error message.
      *
-     * @param message Mensaje de error que describe la causa de la excepción.
+     * @param message Error message describing the cause of the exception.
      */
     public PriceNotFoundException(String message) {
         super(message);
     }
 }
-

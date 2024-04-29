@@ -7,8 +7,8 @@ import lombok.experimental.FieldDefaults;
 import java.io.Serializable;
 
 /**
- * Clase DTO (Data Transfer Object) que representa la respuesta de precios.
- * Contiene una lista de objetos {@link PriceDto} que representan los precios.
+ * DTO (Data Transfer Object) class representing the price response.
+ * Contains a {@link PriceDto} object representing the price.
  */
 @NoArgsConstructor
 @AllArgsConstructor

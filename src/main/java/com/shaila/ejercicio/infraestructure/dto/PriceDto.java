@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
  * DTO (Data Transfer Object) class representing a price.
  * Contains information about the product, brand, price list, start date, end date, and price.
  */
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)

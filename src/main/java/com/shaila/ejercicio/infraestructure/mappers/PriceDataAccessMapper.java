@@ -34,7 +34,7 @@ public class PriceDataAccessMapper {
      */
     public static PriceDto toPriceDto(Price price){
         log.info("Mapping Price to PriceDto: {}", price);
-       var n = new PriceDto();
+
         return new PriceDto(price.getProductId(), price.getBrandId(), price.getPriceList(), price.getStartDate(),
                 price.getEndDate(), price.getPrice());
     }

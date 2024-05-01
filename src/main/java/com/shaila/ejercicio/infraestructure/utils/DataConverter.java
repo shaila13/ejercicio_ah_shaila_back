@@ -29,8 +29,12 @@ public class DataConverter {
      * @param date    Date string to parse.
      * @param pattern Date format pattern.
      * @return Parsed LocalDateTime object.
+     * @throws InvalidParameterException If the provided date string is null or has an incorrect format.
      */
 	public static LocalDateTime getDate(String date, String pattern) {
+        if (date == null) {
+            throw new InvalidParameterException("Date cannot be null.");
+        }
         try {
             return LocalDateTime.parse(date, DateTimeFormatter.ofPattern(pattern));
         } catch (DateTimeParseException e) {

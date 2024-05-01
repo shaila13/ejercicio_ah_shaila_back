@@ -44,7 +44,8 @@ public class PriceController {
             @RequestParam String brandId,
             @RequestParam String productId,
             @RequestParam String applicationDate) {
-        log.info("Querying price for brandId: {}, productId: {}, applicationDate: {}", brandId, productId, applicationDate);
+        log.info("Querying price for brandId: {}, productId: {}, applicationDate: {}", brandId, productId,
+                applicationDate);
 
         ResponsePrice response = getPricesInfoUseCase.getPricesInfo(
                 DataConverter.validateNumericParameters(brandId),

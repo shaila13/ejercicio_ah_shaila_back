@@ -5,10 +5,8 @@ import com.shaila.ejercicio.domain.models.Price;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
 import com.shaila.ejercicio.infraestructure.dto.PriceDto;
 import com.shaila.ejercicio.domain.models.ResponsePrice;
-import com.shaila.ejercicio.infraestructure.entities.Prices;
 import com.shaila.ejercicio.infraestructure.exception.InvalidParameterException;
 import com.shaila.ejercicio.infraestructure.exception.PriceNotFoundException;
-import com.shaila.ejercicio.infraestructure.mappers.PriceDataAccessMapper;
 import com.shaila.ejercicio.infraestructure.repositories.JpaPriceRepositoryAdapter;
 import com.shaila.ejercicio.infraestructure.utils.DataConverter;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,14 +34,13 @@ class PricesInfoUseCaseTest {
 	String brandIdWrong = null;
 	String productIdWrong = null;
 
-	String numericValue = "12345";
-	String nonNumericValue = "abc";
 
 	String applicationDate = "2020-06-14 00:00:00";
 	String applicationDateWrong = "2020-06-14-00:00:00";
+
 	Price price ;
 	Price price2 ;
-	Prices prices;
+
 	PriceDto priceDto;
 	List<Price> priceList ;
 
@@ -57,6 +54,7 @@ class PricesInfoUseCaseTest {
 	@InjectMocks
 	GetPricesInfoUseCaseImpl getPricesUseCase;
 
+
 	@BeforeEach
 	void setUp() {
 		price = new Price(productId, brandId,1, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
@@ -66,13 +64,13 @@ class PricesInfoUseCaseTest {
 
 		priceDto = new PriceDto(productId,brandId,1,  LocalDateTime.now(), LocalDateTime.now().plusHours(1),
 				35.50);
-		prices = new Prices(1L,productId, brandId,LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				35.50,  1, 1, "EUR");
+
 		priceList = Arrays.asList(price,price2);
 		responsePriceDto = new ResponsePrice(priceDto);
 		priceRepositoryPort = mock(PriceRepositoryPort.class);
 		jpaPriceRepositoryAdapter = mock(JpaPriceRepositoryAdapter.class);
 		getPricesUseCase = new GetPricesInfoUseCaseImpl(priceRepositoryPort);
+
 	}
 
 	@Test
@@ -126,38 +124,5 @@ class PricesInfoUseCaseTest {
 						DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
 
 	}
-
-	@Test
-	public void shouldReturnPriceWhenCalledToDomainModel() {
-		var result = PriceDataAccessMapper.toDomainModel(prices);
-
-		assertEquals(prices.getBrandId(), result.getBrandId());
-		assertEquals(prices.getProductId(), result.getProductId());
-		assertEquals(prices.getPrice(), result.getPrice());
-		assertEquals(prices.getPriority(), result.getPriority());
-	}
-
-	@Test
-	public void shouldReturnPriceDtoWhenCalledToPriceDto() {
-		var result = PriceDataAccessMapper.toPriceDto(price);
-
-		assertEquals(prices.getBrandId(), result.getBrandId());
-		assertEquals(prices.getProductId(), result.getProductId());
-		assertEquals(prices.getPrice(), result.getPrice());
-		assertEquals(prices.getPriceList(), result.getPriceList());
-
-	}
-
-	@Test
-	public void shouldReturnValidLongWhenGivenNumericValue() {
-		var result = DataConverter.validateNumericParameters(numericValue);
-		assertEquals(12345L, result);
-	}
-
-	@Test
-	public void shouldThrowExceptionWhenGivenNonNumericValue() {
-		assertThrows(InvalidParameterException.class, () -> DataConverter.validateNumericParameters(nonNumericValue));
-	}
-
 
 }

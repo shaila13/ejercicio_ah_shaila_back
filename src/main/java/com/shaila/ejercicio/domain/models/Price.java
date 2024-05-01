@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
  */
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Price {
 

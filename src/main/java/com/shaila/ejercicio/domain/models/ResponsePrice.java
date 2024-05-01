@@ -10,7 +10,6 @@ import java.io.Serializable;
  * DTO (Data Transfer Object) class representing the price response.
  * Contains a {@link PriceDto} object representing the price.
  */
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)

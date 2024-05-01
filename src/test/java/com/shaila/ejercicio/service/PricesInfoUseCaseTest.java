@@ -36,6 +36,9 @@ class PricesInfoUseCaseTest {
 	String brandIdWrong = null;
 	String productIdWrong = null;
 
+	String numericValue = "12345";
+	String nonNumericValue = "abc";
+
 	String applicationDate = "2020-06-14 00:00:00";
 	String applicationDateWrong = "2020-06-14-00:00:00";
 	Price price ;
@@ -121,6 +124,7 @@ class PricesInfoUseCaseTest {
 		assertThrows(InvalidParameterException.class,
 				() -> getPricesUseCase.getPricesInfo(brandId,DataConverter.validateNumericParameters(productIdWrong),
 						DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
+
 	}
 
 	@Test
@@ -143,5 +147,17 @@ class PricesInfoUseCaseTest {
 		assertEquals(prices.getPriceList(), result.getPriceList());
 
 	}
+
+	@Test
+	public void shouldReturnValidLongWhenGivenNumericValue() {
+		var result = DataConverter.validateNumericParameters(numericValue);
+		assertEquals(12345L, result);
+	}
+
+	@Test
+	public void shouldThrowExceptionWhenGivenNonNumericValue() {
+		assertThrows(InvalidParameterException.class, () -> DataConverter.validateNumericParameters(nonNumericValue));
+	}
+
 
 }

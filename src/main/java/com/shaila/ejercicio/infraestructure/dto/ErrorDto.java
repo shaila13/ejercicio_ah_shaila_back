@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
  * Class representing a Data Transfer Object (DTO) for representing errors.
  * This DTO contains information about the HTTP status, error message, and timestamp of the error.
  */
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)

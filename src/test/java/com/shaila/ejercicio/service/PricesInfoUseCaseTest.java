@@ -5,8 +5,10 @@ import com.shaila.ejercicio.domain.models.Price;
 import com.shaila.ejercicio.domain.ports.out.PriceRepositoryPort;
 import com.shaila.ejercicio.infraestructure.dto.PriceDto;
 import com.shaila.ejercicio.domain.models.ResponsePrice;
+import com.shaila.ejercicio.infraestructure.entities.Prices;
 import com.shaila.ejercicio.infraestructure.exception.InvalidParameterException;
 import com.shaila.ejercicio.infraestructure.exception.PriceNotFoundException;
+import com.shaila.ejercicio.infraestructure.mappers.PriceDataAccessMapper;
 import com.shaila.ejercicio.infraestructure.repositories.JpaPriceRepositoryAdapter;
 import com.shaila.ejercicio.infraestructure.utils.DataConverter;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +21,6 @@ import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ class PricesInfoUseCaseTest {
 	String applicationDateWrong = "2020-06-14-00:00:00";
 	Price price ;
 	Price price2 ;
+	Prices prices;
 	PriceDto priceDto;
 	List<Price> priceList ;
 
@@ -54,13 +56,15 @@ class PricesInfoUseCaseTest {
 
 	@BeforeEach
 	void setUp() {
-		price = new Price(brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				1, productId, 1, 35.50, "EUR");
-		price2 = new Price(brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				2, productId, 0, 25.45, "EUR");
+		price = new Price(productId, brandId,1, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				35.50, 1, "EUR");
+		price2 = new Price(productId, brandId, 2, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				25.45,0,  "EUR");
 
-		priceDto = new PriceDto(brandId,productId,1,  LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+		priceDto = new PriceDto(productId,brandId,1,  LocalDateTime.now(), LocalDateTime.now().plusHours(1),
 				35.50);
+		prices = new Prices(1L,productId, brandId,LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				35.50,  1, 1, "EUR");
 		priceList = Arrays.asList(price,price2);
 		responsePriceDto = new ResponsePrice(priceDto);
 		priceRepositoryPort = mock(PriceRepositoryPort.class);
@@ -72,12 +76,14 @@ class PricesInfoUseCaseTest {
 	public void shouldReturnPricesWhenCalledWithValidParameters(){
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
 				.thenReturn(Optional.ofNullable(price));
-		ResponsePrice result = getPricesUseCase.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss") );
+		ResponsePrice result = getPricesUseCase.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate,
+				"yyyy-MM-dd HH:mm:ss") );
 		assertNotNull(result);
 		assertNotNull(result.getPrice());
 		assertEquals(35.50, result.getPrice().getPrice());
 		verify(priceRepositoryPort, times(1))
-				.findByBrandIdAndProductIdDateApplication(brandId, productId, LocalDateTime.parse(applicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				.findByBrandIdAndProductIdDateApplication(brandId, productId, LocalDateTime.parse(applicationDate,
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
 	}
 
@@ -86,7 +92,8 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(anyLong(), anyLong(), any()))
 				.thenReturn(Optional.empty());
 		assertThrows(PriceNotFoundException.class,
-				() -> getPricesUseCase.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
+				() -> getPricesUseCase.getPricesInfo(brandId, productId, DataConverter.getDate(applicationDate,
+						"yyyy-MM-dd HH:mm:ss")));
 	}
 
 	@Test
@@ -94,7 +101,8 @@ class PricesInfoUseCaseTest {
 		when(priceRepositoryPort.findByBrandIdAndProductIdDateApplication(any(), any(), any()))
 				.thenReturn(Optional.ofNullable(price));
 		assertThrows(InvalidParameterException.class,
-				() -> getPricesUseCase.getPricesInfo(brandId, productId,  DataConverter.getDate(applicationDateWrong, "yyyy-MM-dd HH:mm:ss")));
+				() -> getPricesUseCase.getPricesInfo(brandId, productId,  DataConverter.getDate(applicationDateWrong,
+						"yyyy-MM-dd HH:mm:ss")));
 	}
 
 	@Test
@@ -114,4 +122,26 @@ class PricesInfoUseCaseTest {
 				() -> getPricesUseCase.getPricesInfo(brandId,DataConverter.validateNumericParameters(productIdWrong),
 						DataConverter.getDate(applicationDate, "yyyy-MM-dd HH:mm:ss")));
 	}
+
+	@Test
+	public void shouldReturnPriceWhenCalledToDomainModel() {
+		var result = PriceDataAccessMapper.toDomainModel(prices);
+
+		assertEquals(prices.getBrandId(), result.getBrandId());
+		assertEquals(prices.getProductId(), result.getProductId());
+		assertEquals(prices.getPrice(), result.getPrice());
+		assertEquals(prices.getPriority(), result.getPriority());
+	}
+
+	@Test
+	public void shouldReturnPriceDtoWhenCalledToPriceDto() {
+		var result = PriceDataAccessMapper.toPriceDto(price);
+
+		assertEquals(prices.getBrandId(), result.getBrandId());
+		assertEquals(prices.getProductId(), result.getProductId());
+		assertEquals(prices.getPrice(), result.getPrice());
+		assertEquals(prices.getPriceList(), result.getPriceList());
+
+	}
+
 }

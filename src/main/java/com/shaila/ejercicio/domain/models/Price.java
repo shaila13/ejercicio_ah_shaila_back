@@ -18,10 +18,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Price {
+
+    /**
+     * Product ID.
+     */
+    Long productId;
+
+
     /**
      * Brand ID.
      */
     Long brandId;
+
+    /**
+     * Price list ID.
+     */
+    int priceList;
 
     /**
      * Start date when the price applies.
@@ -34,24 +46,15 @@ public class Price {
     LocalDateTime endDate;
 
     /**
-     * Price list ID.
+     * Final selling price.
      */
-    int priceList;
-
-    /**
-     * Product ID.
-     */
-    Long productId;
+    Double price;
 
     /**
      * Priority of the price.
      */
     int priority;
 
-    /**
-     * Final selling price.
-     */
-    Double price;
 
     /**
      * Currency ISO.

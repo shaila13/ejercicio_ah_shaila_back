@@ -21,9 +21,10 @@ public class PriceDataAccessMapper {
      */
     public static Price toDomainModel(Prices priceEntity){
         log.info("Mapping Prices to Price: {}", priceEntity);
-        return new Price(priceEntity.getBrandId(), priceEntity.getStartDate(), priceEntity.getEndDate(),
-                priceEntity.getPriceList(), priceEntity.getProductId(), priceEntity.getPriority(),
-                priceEntity.getPrice(), priceEntity.getCurr());
+
+        return new Price(priceEntity.getProductId(),priceEntity.getBrandId(),priceEntity.getPriceList(),
+                priceEntity.getStartDate(), priceEntity.getEndDate(), priceEntity.getPrice(),
+                priceEntity.getPriority(), priceEntity.getCurr());
     }
     /**
      * Converts a domain model Price object to a PriceDto object.
@@ -33,6 +34,7 @@ public class PriceDataAccessMapper {
      */
     public static PriceDto toPriceDto(Price price){
         log.info("Mapping Price to PriceDto: {}", price);
+       var n = new PriceDto();
         return new PriceDto(price.getProductId(), price.getBrandId(), price.getPriceList(), price.getStartDate(),
                 price.getEndDate(), price.getPrice());
     }

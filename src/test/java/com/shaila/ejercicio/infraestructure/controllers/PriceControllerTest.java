@@ -21,10 +21,11 @@ import static org.mockito.Mockito.when;
 
 class PriceControllerTest {
 
-    String brandId = "1";
-    String productId = "35455";
-    String applicationDate = "2024-05-01 12:00:00";
-    PriceDto priceDto;
+    private static final String BRAND_ID = "1";
+    private static final String PRODUCT_ID = "35455";
+    private static final String APPLICATION_DATE = "2024-05-01 12:00:00";
+    private static final double PRICE = 35.50;
+    private PriceDto priceDto;
     @Mock
     private GetPricesInfoUseCase getPricesInfoUseCase;
 
@@ -34,7 +35,7 @@ class PriceControllerTest {
     @BeforeEach
     void setUp() {
         priceDto = new PriceDto(35455L, 1L, 1, LocalDateTime.now(), LocalDateTime.now(),
-                35.50);
+                PRICE);
         getPricesInfoUseCase = mock(GetPricesInfoUseCase.class);
         priceController = new PriceController(getPricesInfoUseCase);
     }
@@ -47,7 +48,7 @@ class PriceControllerTest {
                 .thenReturn(expectedResponse);
 
         ResponseEntity<ResponsePrice> responseEntity = priceController.getInfoPrices(
-                brandId, productId, applicationDate);
+                BRAND_ID, PRODUCT_ID, APPLICATION_DATE);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(expectedResponse, responseEntity.getBody());

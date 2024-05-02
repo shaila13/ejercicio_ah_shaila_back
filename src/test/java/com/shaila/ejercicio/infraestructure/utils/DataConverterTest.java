@@ -9,42 +9,42 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DataConverterTest {
 
-    String numericValue = "12345";
-    String nonNumericValue = "abc";
-    String date = "2024-05-01 12:00:00";
-    String dateIncorrectFormat = "01-05-2024 12:00:00";
-    String dateInvalidTime = "2024-05-01 25:00:00";
-    String dateNull = null;
-    String pattern = "yyyy-MM-dd HH:mm:ss";
+    private static final String NUMERIC_VALUE = "12345";
+    private static final String NON_NUMERIC_VALUE = "abc";
+    private static final String DATE = "2024-05-01 12:00:00";
+    private static final String DATE_INCORRECT_FORMAT = "01-05-2024 12:00:00";
+    private static final String DATE_INVALID_TIME = "2024-05-01 25:00:00";
+    private static final String DATE_NULL = null;
+    private static final String PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @Test
     public void shouldReturnValidLongWhenGivenNumericValue() {
-        var result = DataConverter.validateNumericParameters(numericValue);
+        var result = DataConverter.validateNumericParameters(NUMERIC_VALUE);
         assertEquals(12345L, result);
     }
     @Test
     public void shouldThrowInvalidParameterExceptionWhenGivenNonNumericValue() {
-        assertThrows(InvalidParameterException.class, () -> DataConverter.validateNumericParameters(nonNumericValue));
+        assertThrows(InvalidParameterException.class, () -> DataConverter.validateNumericParameters(NON_NUMERIC_VALUE));
     }
 
     @Test
     public void shouldReturnParsedLocalDateTime() {
-        LocalDateTime result = DataConverter.getDate(date, pattern);
+        LocalDateTime result = DataConverter.getDate(DATE, PATTERN);
         assertEquals(LocalDateTime.of(2024, 5, 1, 12, 0, 0), result);
     }
 
     @Test
     public void shouldThrowInvalidParameterExceptionForIncorrectDateFormat() {
-        assertThrows(InvalidParameterException.class, () -> DataConverter.getDate(dateIncorrectFormat, pattern));
+        assertThrows(InvalidParameterException.class, () -> DataConverter.getDate(DATE_INCORRECT_FORMAT, PATTERN));
     }
 
     @Test
     public void shouldThrowInvalidParameterExceptionForInvalidDateTime() {
-        assertThrows(InvalidParameterException.class, () -> DataConverter.getDate(dateInvalidTime, pattern));
+        assertThrows(InvalidParameterException.class, () -> DataConverter.getDate(DATE_INVALID_TIME, PATTERN));
     }
 
     @Test
     public void shouldThrowInvalidParameterExceptionForNullDate() {
-        assertThrows(InvalidParameterException.class, () -> DataConverter.getDate(dateNull, pattern));
+        assertThrows(InvalidParameterException.class, () -> DataConverter.getDate(DATE_NULL, PATTERN));
     }
 }

@@ -11,17 +11,23 @@ import java.time.temporal.ChronoUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PriceDataAccessMapperTest {
-    Long brandId = 1L;
-    Long productId = 35455L;
-    Prices prices;
-    Price price ;
+
+    private static final Long PRICE_ID = 1L;
+    private static final Long BRAND_ID = 1L;
+    private static final Long PRODUCT_ID = 35455L;
+    private static final double PRICE = 35.50;
+    private static final int PRICE_LIST = 1;
+    private static final String CURR = "EUR";
+    private static final int PRIORITY = 1;
+    private  Prices prices;
+    private Price price ;
 
     @BeforeEach
     void setUp() {
-        price = new Price(productId, brandId,1, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-                35.50, 1, "EUR");
-        prices = new Prices(1L,productId, brandId, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-                35.50,  1, 1, "EUR");
+        price = new Price(PRODUCT_ID, BRAND_ID,PRICE_LIST, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+                PRICE, PRIORITY, CURR);
+        prices = new Prices(PRICE_ID,PRODUCT_ID, BRAND_ID, LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+                PRICE,  PRICE_LIST, PRIORITY, CURR);
     }
 
 

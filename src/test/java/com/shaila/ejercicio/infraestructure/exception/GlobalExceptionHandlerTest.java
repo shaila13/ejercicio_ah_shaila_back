@@ -11,12 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GlobalExceptionHandlerTest {
 
-    String nonNumericValue = "abc";
+    private static final String NON_NUMERIC_VALUE = "abc";
+    private static final String ERROR_MESSAGE_PRICE_NOT_FOUND = "Price not found";
+    private static final String ERROR_MESSAGE_INVALID_PARAMETER = "Invalid parameter";
 
-    String errorMessagePriceNotFound = "Price not found";
-    String errorMessageInvalidParameter = "Invalid parameter";
-
-    GlobalExceptionHandler globalExceptionHandler;
+    private GlobalExceptionHandler globalExceptionHandler;
 
     @BeforeEach
     void setUp() {
@@ -25,25 +24,25 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void handlePriceNotFoundException() {
-        PriceNotFoundException exception = new PriceNotFoundException(errorMessagePriceNotFound);
+        PriceNotFoundException exception = new PriceNotFoundException(ERROR_MESSAGE_PRICE_NOT_FOUND);
         ResponseEntity<Object> responseEntity = globalExceptionHandler.handlePriceNotFoundException(exception);
         ErrorDto errorDto = (ErrorDto) responseEntity.getBody();
-        assertEquals(errorMessagePriceNotFound, errorDto.getMessage());
+        assertEquals(ERROR_MESSAGE_PRICE_NOT_FOUND, errorDto.getMessage());
         assertEquals(HttpStatus.NOT_FOUND, errorDto.getStatus());
     }
 
     @Test
     void handleInvalidParameterException() {
-        InvalidParameterException exception = new InvalidParameterException(errorMessageInvalidParameter);
+        InvalidParameterException exception = new InvalidParameterException(ERROR_MESSAGE_INVALID_PARAMETER);
         ResponseEntity<Object> responseEntity = globalExceptionHandler.handleInvalidParameterException(exception);
         ErrorDto errorDto = (ErrorDto) responseEntity.getBody();
-        assertEquals(errorMessageInvalidParameter, errorDto.getMessage());
+        assertEquals(ERROR_MESSAGE_INVALID_PARAMETER, errorDto.getMessage());
         assertEquals(HttpStatus.BAD_REQUEST, errorDto.getStatus());
     }
 
     @Test
     public void shouldThrowExceptionWhenGivenNonNumericValue() {
-        assertThrows(InvalidParameterException.class, () -> DataConverter.validateNumericParameters(nonNumericValue));
+        assertThrows(InvalidParameterException.class, () -> DataConverter.validateNumericParameters(NON_NUMERIC_VALUE));
     }
 
 }

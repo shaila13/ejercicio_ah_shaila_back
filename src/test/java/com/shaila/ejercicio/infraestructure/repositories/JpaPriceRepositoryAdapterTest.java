@@ -19,11 +19,17 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class JpaPriceRepositoryAdapterTest {
-    Long brandId = 1L;
-    Long productId = 35455L;
-    LocalDateTime applicationDate = LocalDateTime.of(2024, 5, 1, 12, 0);
-    Price price;
-    Prices priceEntity;
+
+    private static final Long PRICE_ID = 1L;
+    private static final Long BRAND_ID = 1L;
+    private static final Long PRODUCT_ID = 35455L;
+    private static final LocalDateTime APPLICATION_DATE = LocalDateTime.of(2024, 5, 1, 12, 0);
+    private static final double PRICE = 35.50;
+    private static final int PRICE_LIST = 1;
+    private static final String CURR = "EUR";
+    private static final int PRIORITY = 1;
+    private Price price;
+    private Prices priceEntity;
     @Mock
     private JpaPriceRepository jpaPriceRepository;
 
@@ -36,10 +42,10 @@ class JpaPriceRepositoryAdapterTest {
 
     @BeforeEach
     void setUp() {
-        price = new Price(productId, brandId, 1, LocalDateTime.now(), LocalDateTime.now(),
-                35.50, 1, "EUR");
-        priceEntity = new Prices(1L,productId, brandId, LocalDateTime.now(), LocalDateTime.now(),35.50,
-                1, 1, "EUR");
+        price = new Price(PRODUCT_ID, BRAND_ID, PRICE_LIST, LocalDateTime.now(), LocalDateTime.now(),
+                PRICE, PRIORITY, CURR);
+        priceEntity = new Prices(PRICE_ID,PRODUCT_ID, BRAND_ID, LocalDateTime.now(), LocalDateTime.now(),PRICE,
+                PRICE_LIST, PRIORITY, CURR);
         jpaPriceRepository = mock(JpaPriceRepository.class);
         priceDataAccessMapper = mock(PriceDataAccessMapper.class);
         jpaPriceRepositoryAdapter = new JpaPriceRepositoryAdapter(jpaPriceRepository, priceDataAccessMapper);
@@ -50,7 +56,8 @@ class JpaPriceRepositoryAdapterTest {
         when(jpaPriceRepository.findByBrandIdAndProductIdAndApplicationDateOrderByPriorityDesc(anyLong(), anyLong(), any()))
                 .thenReturn(Optional.ofNullable(priceEntity));
 
-        Optional<Price> result = jpaPriceRepositoryAdapter.findByBrandIdAndProductIdDateApplication(brandId, productId, applicationDate);
+        Optional<Price> result = jpaPriceRepositoryAdapter.findByBrandIdAndProductIdDateApplication(BRAND_ID, PRODUCT_ID,
+                APPLICATION_DATE);
 
         assertNotNull(result);
 
@@ -59,7 +66,9 @@ class JpaPriceRepositoryAdapterTest {
         assertEquals(price.getBrandId(), result.get().getBrandId());
         assertEquals(price.getPriority(), result.get().getPriority());
         assertEquals(price.getPriceList(), result.get().getPriceList());
-        assertEquals(price.getStartDate().truncatedTo(ChronoUnit.SECONDS), result.get().getStartDate().truncatedTo(ChronoUnit.SECONDS));
-        assertEquals(price.getEndDate().truncatedTo(ChronoUnit.SECONDS), result.get().getEndDate().truncatedTo(ChronoUnit.SECONDS));
+        assertEquals(price.getStartDate().truncatedTo(ChronoUnit.SECONDS), result.get().getStartDate().truncatedTo(
+                ChronoUnit.SECONDS));
+        assertEquals(price.getEndDate().truncatedTo(ChronoUnit.SECONDS), result.get().getEndDate().truncatedTo(
+                ChronoUnit.SECONDS));
     }
 }
